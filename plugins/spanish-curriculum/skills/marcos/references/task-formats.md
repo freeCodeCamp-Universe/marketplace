@@ -10,15 +10,16 @@ its block type and interaction format.
 
 Choose the interaction format based on what best tests the concept:
 
-| Concept type | Best format |
-|---|---|
-| Comprehension — did they understand what they heard? | Multiple Choice |
-| Vocabulary — do they know a specific word or phrase? | Fill in the Blank |
-| Grammar rule — true/false about a pattern they just learned | True or False |
-| Numbers, names, factual recall | Multiple Choice or Fill in the Blank |
-| Sentence structure — building from parts | Fill in the Blank |
+| Concept type                                                | Best format                          |
+| ----------------------------------------------------------- | ------------------------------------ |
+| Comprehension — did they understand what they heard?        | Multiple Choice                      |
+| Vocabulary — do they know a specific word or phrase?        | Fill in the Blank                    |
+| Grammar rule — true/false about a pattern they just learned | True or False                        |
+| Numbers, names, factual recall                              | Multiple Choice or Fill in the Blank |
+| Sentence structure — building from parts                    | Fill in the Blank                    |
 
 Within each block type, the **purpose** of the description differs:
+
 - **Warm-up**: Brief intro to prime the learner. No grammar explanations. Simple.
 - **Learn**: Full teaching moment. Explain the rule, give examples in description.
 - **Practice**: Confirmation task. No examples — learner applies knowledge alone.
@@ -27,12 +28,12 @@ Within each block type, the **purpose** of the description differs:
 
 ## Block Type Differences at a Glance
 
-| | Warm-up | Learn | Practice |
-|---|---|---|---|
-| Description style | Brief intro, no examples | Full explanation + examples | State concept being practiced, no examples |
-| Question complexity | Simple | Moderate | Moderate to challenging |
-| Explanation depth | Brief, flag gotchas | Reinforce teaching point | Reinforce + expand |
-| Has `--video-solution--`? | Yes (MC/TF) | Yes (MC/TF) | Yes (MC/TF) |
+|                           | Warm-up                  | Learn                       | Practice                                   |
+| ------------------------- | ------------------------ | --------------------------- | ------------------------------------------ |
+| Description style         | Brief intro, no examples | Full explanation + examples | State concept being practiced, no examples |
+| Question complexity       | Simple                   | Moderate                    | Moderate to challenging                    |
+| Explanation depth         | Brief, flag gotchas      | Reinforce teaching point    | Reinforce + expand                         |
+| Has `--video-solution--`? | Yes (MC/TF)              | Yes (MC/TF)                 | Yes (MC/TF)                                |
 
 ---
 
@@ -53,11 +54,13 @@ Do **not** add any comment to the correct answer line. The absence of a `### --f
 - ❌ `desarrollar` → `desarrolla`
 
 **`For example:` spacing.** When introducing examples in a description or explanation:
+
 - Always put a blank line before `For example:`
 - If there is **only one example**, write it on the next line without a `-` bullet
 - If there are **two or more examples**, use `-` bullets for each
 
 Single example (no bullet):
+
 ```
 ...pattern used throughout this module.
 
@@ -66,6 +69,7 @@ For example:
 ```
 
 Multiple examples (bullets):
+
 ```
 ...structure used throughout this module:
 
@@ -82,21 +86,25 @@ These rules apply everywhere: answer options, descriptions, explanations, and fe
 
 **Rule 1 — All Spanish content gets backticks.**
 Any Spanish word, phrase, fragment, or full sentence must be wrapped in backticks.
+
 - ✅ `La empresa crea productos digitales.`
 - ❌ La empresa crea productos digitales.
 
 **Rule 2 — English content never gets backticks.**
 Plain English prose, English answer options, and English labels stay outside backticks.
+
 - ✅ A technology company.
 - ❌ `A technology company.`
 
 **Rule 3 — Spanish answer options: backticks + capitalize the first letter.**
 When an answer option is in Spanish, wrap it in backticks AND capitalize the first letter.
+
 - ✅ `El departamento de marketing`.
 - ✅ `La empresa CREA productos digitales`
 - ❌ `el departamento de marketing`
 
 **Rule 4 — English answer options: plain text, no backticks.**
+
 - ✅ Twelve employees.
 - ✅ A technology company.
 - ❌ `Twelve employees.`
@@ -104,6 +112,7 @@ When an answer option is in Spanish, wrap it in backticks AND capitalize the fir
 **Rule 5 — Structure patterns: only backtick the Spanish fragments, not the placeholders.**
 When showing a grammatical pattern in an explanation, backtick each Spanish segment
 but leave English placeholder labels outside backticks.
+
 - ✅ `El departamento de` [department's name] + `tiene` + [number] + `empleados`.
 - ❌ `El departamento de` `[department's name]` + `tiene` + `[number]` + `empleados`.
 
@@ -116,9 +125,11 @@ options — not isolated words. The verb being tested must appear in UPPERCASE w
 the sentence so the learner can clearly see what is being evaluated.
 
 **Question stem:**
+
 > Which of the following sentences is conjugated correctly with the verb `[verb]`?
 
 **Answer options — full sentences, verb in uppercase:**
+
 ```
 `La empresa CREAR productos digitales`    ← wrong (infinitive)
 `La empresa CREAN productos digitales`    ← wrong (3rd plural)
@@ -303,11 +314,12 @@ Warm-up and Practice.
 # --description--
 
 [Detailed explanation of the concept being taught. Include:
+
 - What rule or pattern is illustrated
 - Examples with backtick-formatted Spanish: `El equipo tiene seis miembros.`
 - Why the grammar works this way
 - Any related concepts the learner will also encounter
-Descriptions are in English.]
+  Descriptions are in English.]
 
 # --instructions--
 
@@ -673,8 +685,7 @@ I confirm I read the grammar highlights.
 ### Review-Glossary (`REVIEW-GLOSSARY_task-1.md`)
 
 The glossary lists all key vocabulary from the module, grouped by category and
-in alphabetical order within each category. Use the `- \`Spanish\` – English`
-format. Use `<br>` between categories. No audio comment.
+in alphabetical order within each category. Use the `- \`Spanish\` – English`format. Use`<br>` between categories. No audio comment.
 
 ```markdown
 <!-- GLOSSARY -->
@@ -802,6 +813,7 @@ correct choice per question.
 Before committing any task file, verify:
 
 **All task types:**
+
 - [ ] No `[PLACEHOLDER]` text left anywhere in the file
 - [ ] All prose (descriptions, instructions, explanations) is in English
 - [ ] All Spanish words, phrases, and sentences are wrapped in backticks
@@ -814,6 +826,7 @@ Before committing any task file, verify:
 - [ ] `For example:` has a blank line before it; single examples have no `-` bullet
 
 **Warm-up / Learn / Practice only:**
+
 - [ ] Audio comment at the top — Spanish sentence the learner will hear
 - [ ] Correct answer has **no** `### --feedback--` block and **no** trailing comment
 - [ ] All wrong answers have a `### --feedback--` block
@@ -821,6 +834,7 @@ Before committing any task file, verify:
 - [ ] Description matches the block type (Warm-up = light; Learn = examples; Practice = no examples)
 
 **REVIEW-GRAMMAR only:**
+
 - [ ] Starts with `<!-- GRAMMAR -->` comment (no audio line)
 - [ ] Content grouped under `## Heading` sections
 - [ ] `<br />` spacer between each section
@@ -828,6 +842,7 @@ Before committing any task file, verify:
 - [ ] No `# --explanation--`, no questions, no blanks
 
 **REVIEW-GLOSSARY only:**
+
 - [ ] Starts with `<!-- GLOSSARY -->` comment (no audio line)
 - [ ] Vocabulary grouped by category, alphabetical within each category
 - [ ] Each entry uses `- \`Spanish\` – English` format
@@ -836,6 +851,7 @@ Before committing any task file, verify:
 - [ ] No `# --explanation--`, no questions, no blanks
 
 **QUIZ only:**
+
 - [ ] No audio comment at the top
 - [ ] Description states the passing threshold (e.g. "at least 9 of 10")
 - [ ] Each question has exactly **3 distractors** and **1 answer**

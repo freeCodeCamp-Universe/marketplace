@@ -1,5 +1,5 @@
 #!/bin/bash
-# fcc-spanish-curriculum — Task File Validator
+# spanish-curriculum — Task File Validator
 # PostToolUse hook: runs automatically after Write or Edit on any .md file.
 # Checks structure and formatting rules without blocking file creation.
 

@@ -64,22 +64,22 @@ Adapted for A1 Professional Spanish (freeCodeCamp curriculum)
 
 These are the core functions Carmen should use to anchor module design:
 
-| Function | Spanish example |
-|---|---|
-| Greet and say goodbye | Hola, buenos días, hasta luego |
-| Introduce yourself | Me llamo…, Soy… |
-| Introduce others | Ella es…, Te presento a… |
-| Ask/give name | ¿Cómo te llamas? / Me llamo… |
-| Ask/give nationality | ¿De dónde eres? / Soy de… |
-| Ask/give profession | ¿A qué te dedicas? / Soy diseñadora |
-| Ask/give address | ¿Dónde vives? / Vivo en… |
-| Ask/give age | ¿Cuántos años tienes? / Tengo… |
-| Express quantity (numbers) | uno, dos, tres… / hay + number |
-| Describe people (basic) | Es alto/baja, tiene pelo negro |
-| Ask about and express time | ¿Qué hora es? / Son las… |
-| Make simple requests | ¿Puedes…? / ¿Me das…? |
-| Express likes/dislikes (basic) | Me gusta / No me gusta |
-| Confirm and deny | Sí, no, claro, exacto |
+| Function                       | Spanish example                     |
+| ------------------------------ | ----------------------------------- |
+| Greet and say goodbye          | Hola, buenos días, hasta luego      |
+| Introduce yourself             | Me llamo…, Soy…                     |
+| Introduce others               | Ella es…, Te presento a…            |
+| Ask/give name                  | ¿Cómo te llamas? / Me llamo…        |
+| Ask/give nationality           | ¿De dónde eres? / Soy de…           |
+| Ask/give profession            | ¿A qué te dedicas? / Soy diseñadora |
+| Ask/give address               | ¿Dónde vives? / Vivo en…            |
+| Ask/give age                   | ¿Cuántos años tienes? / Tengo…      |
+| Express quantity (numbers)     | uno, dos, tres… / hay + number      |
+| Describe people (basic)        | Es alto/baja, tiene pelo negro      |
+| Ask about and express time     | ¿Qué hora es? / Son las…            |
+| Make simple requests           | ¿Puedes…? / ¿Me das…?               |
+| Express likes/dislikes (basic) | Me gusta / No me gusta              |
+| Confirm and deny               | Sí, no, claro, exacto               |
 
 ---
 

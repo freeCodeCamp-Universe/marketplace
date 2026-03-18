@@ -44,6 +44,7 @@ Section | Subsection/Item | Topic | Example/Notes | Block 1 | Block 2 | Block 3
 ### Step 2 — Filter for relevance
 
 From the full PCIC inventory, select only concepts that:
+
 1. Match or relate to the module theme
 2. Are appropriate for the current CEFR level
 3. Have NOT already been covered (check against the already-covered list)
@@ -52,6 +53,7 @@ From the full PCIC inventory, select only concepts that:
 ### Step 3 — Rank the candidates
 
 Rank remaining concepts by:
+
 1. **Communicative payoff** — how much does knowing this enable the learner to say/understand?
 2. **Frequency** — how often does this appear in real professional Spanish?
 3. **Simplicity** — regular before irregular, common before rare
@@ -62,6 +64,7 @@ mark it `DEFER`.
 ### Step 4 — Identify the core teaching units
 
 From the ranked list, identify the 3–6 items that form the core of this module:
+
 - Key verbs in 3rd person singular (primary grammar focus at A1–B1)
 - Key nouns and article patterns
 - Structural distinctions (e.g., `tiene` vs `hay`)

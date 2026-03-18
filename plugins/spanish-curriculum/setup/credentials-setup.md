@@ -13,7 +13,7 @@ One person on the team creates the service account and shares the credentials wi
 
 1. Go to [console.cloud.google.com](https://console.cloud.google.com)
 2. Click the project dropdown at the top → **New Project**
-3. Name it `fcc-spanish-curriculum` → **Create**
+3. Name it `spanish-curriculum` → **Create**
 
 ### Step 2 — Enable the Google Sheets API
 
@@ -27,7 +27,7 @@ One person on the team creates the service account and shares the credentials wi
 3. Name: `curriculum-pipeline` → click **Create and Continue** → **Done**
 4. Click on the new service account → **Keys** tab
 5. **Add Key → Create new key → JSON** → download the file
-6. Rename the downloaded file to `fcc-curriculum-credentials.json`
+6. Rename the downloaded file to `curriculum-credentials.json`
 
 ### Step 4 — Share the Google Sheet with the service account
 
@@ -38,7 +38,7 @@ One person on the team creates the service account and shares the credentials wi
 
 ### Step 5 — Share credentials securely with the team
 
-Send the `fcc-curriculum-credentials.json` file to each team member via a secure
+Send the `curriculum-credentials.json` file to each team member via a secure
 channel (Slack DM, encrypted email, 1Password shared vault, etc.).
 
 **Never commit this file to Git.**
@@ -54,6 +54,7 @@ Every team member does this after receiving the credentials JSON from the admin.
 Open the JSON file in a text editor and copy its entire contents.
 
 **Mac / Linux (zsh):**
+
 ```bash
 # Open your shell config
 nano ~/.zshrc
@@ -66,6 +67,7 @@ source ~/.zshrc
 ```
 
 **Mac / Linux (bash):**
+
 ```bash
 nano ~/.bashrc
 # Same line as above
@@ -73,6 +75,7 @@ source ~/.bashrc
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 # Add to your PowerShell profile (run to find the path):
 echo $PROFILE
@@ -95,6 +98,7 @@ print('✅ Google Sheets connection works')
 If you see `✅ Google Sheets connection works`, you're done.
 
 If you get an error:
+
 - `KeyError: 'GOOGLE_SERVICE_ACCOUNT_JSON'` → the env variable wasn't saved. Restart your terminal and try again.
 - `ValueError: No JSON object could be decoded` → check that the JSON is complete and not truncated.
 - `gspread not found` → run `pip install gspread --break-system-packages` first.
@@ -108,8 +112,8 @@ Marcos writes task files directly into a cloned Git repository. Each team member
 ### Step 1 — Clone the curriculum repo
 
 ```bash
-git clone https://github.com/YOUR_ORG/fcc-spanish-curriculum-content.git
-cd fcc-spanish-curriculum-content
+git clone https://github.com/YOUR_ORG/spanish-curriculum-content.git
+cd spanish-curriculum-content
 ```
 
 ### Step 2 — Set up the GitHub MCP (optional, for PR creation from sessions)
@@ -118,7 +122,7 @@ If you want Marcos to be able to open GitHub PRs directly from a session:
 
 1. Go to [github.com/settings/tokens](https://github.com/settings/tokens)
 2. **Generate new token (classic)**
-3. Name: `fcc-curriculum-plugin`
+3. Name: `spanish-curriculum-plugin`
 4. Scopes: check `repo` (full control)
 5. Copy the token
 
@@ -144,10 +148,10 @@ Restart the Claude desktop app to activate.
 
 ## Quick reference — what each agent needs
 
-| Agent | Needs | Where |
-|---|---|---|
-| Carmen | `GOOGLE_SERVICE_ACCOUNT_JSON` env var | Set in shell profile |
-| Marcos | `GOOGLE_SERVICE_ACCOUNT_JSON` env var | Set in shell profile |
-| Marcos | Cloned repo path | Told by user each session |
-| Marcos | Feature branch | User creates; Marcos checks |
-| Both | Sheet URL | Provided by user each session |
+| Agent  | Needs                                 | Where                         |
+| ------ | ------------------------------------- | ----------------------------- |
+| Carmen | `GOOGLE_SERVICE_ACCOUNT_JSON` env var | Set in shell profile          |
+| Marcos | `GOOGLE_SERVICE_ACCOUNT_JSON` env var | Set in shell profile          |
+| Marcos | Cloned repo path                      | Told by user each session     |
+| Marcos | Feature branch                        | User creates; Marcos checks   |
+| Both   | Sheet URL                             | Provided by user each session |

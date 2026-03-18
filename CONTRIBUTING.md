@@ -35,7 +35,7 @@ cp -r templates/plugin/ plugins/<your-plugin-name>/
 
 3. Create skills in `skills/<skill-name>/SKILL.md` inside your plugin directory. Each skill needs YAML frontmatter with `name` and `description`.
 
-4. Update your plugin's `README.md` with a description, skill table, installation instructions, and usage examples. See `plugins/fcc-spanish-curriculum/README.md` for a complete example.
+4. Update your plugin's `README.md` with a description, skill table, installation instructions, and usage examples. See `plugins/spanish-curriculum/README.md` for a complete example.
 
 5. Run validation:
 
@@ -128,7 +128,7 @@ Optional files:
   setup/                 # Setup guides or scripts
 ```
 
-See `plugins/fcc-spanish-curriculum/` for a complete real-world example.
+See `plugins/spanish-curriculum/` for a complete real-world example.
 
 ## Cross-Tool Compatibility
 

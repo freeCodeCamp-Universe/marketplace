@@ -62,14 +62,14 @@ Spanish Fundamentals/
 Each file's name starts with the block type prefix — always uppercase, always
 followed by an underscore:
 
-| Block | Prefix |
-|---|---|
-| Warm-up | `WARM-UP` |
-| Learn | `LEARN` |
-| Practice | `PRACTICE` |
-| Review (grammar explanation) | `REVIEW-GRAMMAR` |
+| Block                               | Prefix            |
+| ----------------------------------- | ----------------- |
+| Warm-up                             | `WARM-UP`         |
+| Learn                               | `LEARN`           |
+| Practice                            | `PRACTICE`        |
+| Review (grammar explanation)        | `REVIEW-GRAMMAR`  |
 | Review (glossary / vocabulary list) | `REVIEW-GLOSSARY` |
-| Quiz | `QUIZ` |
+| Quiz                                | `QUIZ`            |
 
 ### Task number
 
@@ -91,6 +91,7 @@ PRACTICE_task-2.md   ← second Practice task
 ```
 
 Examples:
+
 - `WARM-UP_task-1.md`
 - `LEARN_task-1.md`
 - `LEARN_task-2.md`
@@ -121,6 +122,7 @@ exactly — it lists each task explicitly.
 
 When the module folder is complete, it's passed to the i18n & UI Strategist for
 review. They will check:
+
 - Structural correctness (all required sections present)
 - Language consistency and translation readiness
 - UI rendering compatibility

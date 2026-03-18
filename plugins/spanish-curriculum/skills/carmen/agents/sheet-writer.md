@@ -40,15 +40,15 @@ sh = gc.open_by_url("SHEET_URL")
 Open the `Chapter Status` worksheet. Append rows for every block in the module,
 in this exact column order:
 
-| Col A: Due Date | Col B: Person/Status | Col C: Type | Col D: Name | Col E: dashed-name | Col F: QA | Col G: PR Links/notes |
-|---|---|---|---|---|---|---|
-| (blank) | 0 | Module | [Module Name] | es-[level]-module-[slug] | False | |
-| (blank) | 0 | Warm-up | [Warm-up Name] | es-[level]-warm-up-[slug] | False | |
-| (blank) | 0 | Learn | [Learn 1 Name] | es-[level]-learn-[slug] | False | |
-| (blank) | 0 | Learn | [Learn 2 Name] | es-[level]-learn-[slug] | False | |
-| (blank) | 0 | Practice | [Practice Name] | es-[level]-practice-[slug] | False | |
-| (blank) | 0 | Review | [Review Name] | es-[level]-review-[slug] | False | |
-| (blank) | 0 | Quiz | [Quiz Name] | es-[level]-quiz-[slug] | False | |
+| Col A: Due Date | Col B: Person/Status | Col C: Type | Col D: Name     | Col E: dashed-name         | Col F: QA | Col G: PR Links/notes |
+| --------------- | -------------------- | ----------- | --------------- | -------------------------- | --------- | --------------------- |
+| (blank)         | 0                    | Module      | [Module Name]   | es-[level]-module-[slug]   | False     |                       |
+| (blank)         | 0                    | Warm-up     | [Warm-up Name]  | es-[level]-warm-up-[slug]  | False     |                       |
+| (blank)         | 0                    | Learn       | [Learn 1 Name]  | es-[level]-learn-[slug]    | False     |                       |
+| (blank)         | 0                    | Learn       | [Learn 2 Name]  | es-[level]-learn-[slug]    | False     |                       |
+| (blank)         | 0                    | Practice    | [Practice Name] | es-[level]-practice-[slug] | False     |                       |
+| (blank)         | 0                    | Review      | [Review Name]   | es-[level]-review-[slug]   | False     |                       |
+| (blank)         | 0                    | Quiz        | [Quiz Name]     | es-[level]-quiz-[slug]     | False     |                       |
 
 **Slug naming:** `es-[level]-[type]-[kebab-case-name]`
 (e.g., `es-a1-practice-what-the-company-does`)
@@ -70,16 +70,19 @@ status_ws.append_rows(new_rows, value_input_option='RAW')
 ### Write 2 — Chapter content sheet
 
 **If the chapter sheet exists** (e.g., `Describing a Company and Its People`):
+
 - Read the existing sheet to understand its layout
 - Append the new module's data as a new section at the bottom
 - Follow the exact same cell structure as existing modules in that sheet
 
 **If the chapter sheet does not exist:**
+
 - Read the `Chapter template` sheet to understand the required structure
 - Create a new worksheet named after the chapter (exact name, not slug)
 - Populate it with the chapter objective and the new module data
 
 **Content to write per module** (following the Chapter template format):
+
 - Module title and objective
 - Plan curricular table: Gramática | Function | Vocabulario Específico |
   Nociones generales | Nociones específicas

@@ -1,0 +1,23 @@
+{
+  "skill_name": "carmen",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We finished Chapter 2 (Greetings and Introductions) and now we need to plan the next module for Chapter 3: Describing a Company and Its People. The spreadsheet is at /path/to/CL-A1 Spanish Planning-updated.xlsx. Give me the full Module Brief.",
+      "expected_output": "A complete Module Brief following the Chapter template format, with Plan curricular table, suggested block sequence, concept list with CEFR mappings, and Chapter Status rows. Should NOT include any grammar already taught in Chapters 1 and 2.",
+      "files": ["/path/to/CL-A1 Spanish Planning-updated.xlsx"]
+    },
+    {
+      "id": 2,
+      "prompt": "I want to add a module about numbers 11 to 100 and telling the time. Check what's already been taught in the planning spreadsheet at /path/to/CL-A1 Spanish Planning-updated.xlsx and give me a Module Brief. Make sure you check if numbers 0-10 were already covered.",
+      "expected_output": "A Module Brief that acknowledges numbers 0-10 were already covered in Spanish Fundamentals Chapter 1, focuses only on numbers 11-100 and time expressions. Should map to CEFR A1 can-do statements for telling the time and expressing quantity.",
+      "files": ["/path/to/CL-A1 Spanish Planning-updated.xlsx"]
+    },
+    {
+      "id": 3,
+      "prompt": "Carmen, what are the grammar concepts from the PCIC that haven't been covered yet and would be suitable for a module on daily routines (hablar de rutinas diarias)? The spreadsheet is at /path/to/CL-A1 Spanish Planning-updated.xlsx. Check dependencies and flag anything that needs a prerequisite first.",
+      "expected_output": "A list of PCIC grammar concepts relevant to daily routines (present tense -AR/-ER/-IR verbs, reflexive verbs for routine actions, frequency adverbs, time expressions) that haven't been taught yet. Should flag dependencies like 'present tense must come before reflexive verbs'. Should produce a Module Brief with the concept list table.",
+      "files": ["/path/to/CL-A1 Spanish Planning-updated.xlsx"]
+    }
+  ]
+}

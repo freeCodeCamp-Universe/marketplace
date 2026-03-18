@@ -36,13 +36,13 @@ spreadsheet's planned module. You never write to the spreadsheet.
 
 1. **The Git repo path** — the user must tell you where the curriculum repo is
    cloned on their machine. Ask if not provided:
-   *"What is the path to your cloned curriculum repo?"*
+   _"What is the path to your cloned curriculum repo?"_
    You will write all task files inside that repo.
 
 2. **The planning spreadsheet URL** — Carmen must have already planned the module
    and written it to the Google Sheet. You need the sheet URL or name, plus:
    - The **chapter name** and **module name/number**
-   - If not specified, ask: *"Which chapter and module should I create tasks for?"*
+   - If not specified, ask: _"Which chapter and module should I create tasks for?"_
    - If the module hasn't been planned yet, tell the user to run `/carmen` or
      `/curriculum plan` first.
 
@@ -51,7 +51,7 @@ spreadsheet's planned module. You never write to the spreadsheet.
 
 4. **The target folder within the repo** — the user tells you which subdirectory
    to write into each session. Ask if not provided:
-   *"Where in the repo should I create the task files?"*
+   _"Where in the repo should I create the task files?"_
    See `references/folder-structure.md` for naming conventions once you have the path.
 
 ---
@@ -113,6 +113,7 @@ format.
 **Locate the module section:**
 Find the section for the specific module the user requested. Carmen's planning
 sheets follow the Chapter template format — each module section contains:
+
 - Module title and objective
 - Plan curricular table: Gramática | Function | Vocabulario Específico |
   Nociones generales | Nociones específicas
@@ -164,6 +165,7 @@ create:
 Use the exact names from the spreadsheet. Don't abbreviate or rename.
 
 Examples:
+
 ```
 Describing a Company and Its People/
 └── Module 2 - Company Departments and Roles/
@@ -186,14 +188,14 @@ without consulting it first.
 
 **File naming:** `[BLOCK-PREFIX]_task-[N].md`
 
-| Block | File prefix | Examples |
-|---|---|---|
-| Warm-up | `WARM-UP` | `WARM-UP_task-1.md` |
-| Learn | `LEARN` | `LEARN_task-1.md`, `LEARN_task-2.md` |
-| Practice | `PRACTICE` | `PRACTICE_task-1.md`, `PRACTICE_task-2.md` |
-| Review (grammar) | `REVIEW-GRAMMAR` | `REVIEW-GRAMMAR_task-1.md` |
-| Review (glossary) | `REVIEW-GLOSSARY` | `REVIEW-GLOSSARY_task-1.md` |
-| Quiz | `QUIZ` | `QUIZ_task-1.md` |
+| Block             | File prefix       | Examples                                   |
+| ----------------- | ----------------- | ------------------------------------------ |
+| Warm-up           | `WARM-UP`         | `WARM-UP_task-1.md`                        |
+| Learn             | `LEARN`           | `LEARN_task-1.md`, `LEARN_task-2.md`       |
+| Practice          | `PRACTICE`        | `PRACTICE_task-1.md`, `PRACTICE_task-2.md` |
+| Review (grammar)  | `REVIEW-GRAMMAR`  | `REVIEW-GRAMMAR_task-1.md`                 |
+| Review (glossary) | `REVIEW-GLOSSARY` | `REVIEW-GLOSSARY_task-1.md`                |
+| Quiz              | `QUIZ`            | `QUIZ_task-1.md`                           |
 
 Task numbers (`task-1`, `task-2`, ...) restart at 1 within each block prefix.
 If there are two Learn tasks, they are `LEARN_task-1.md` and `LEARN_task-2.md`.
@@ -208,6 +210,7 @@ Fill in the Blank, or True or False). The format selection guide is in
 
 **Fill in every placeholder completely.** No `[LIKE THIS]` should remain when
 you're done:
+
 - Audio comment: the Spanish sentence or phrase the learner hears
 - Description: explains the concept (with examples for Learn; none for Practice)
 - Question or sentence: the interactive element
@@ -215,6 +218,7 @@ you're done:
 - Explanation: reinforces the teaching point in plain English
 
 **Writing rules:**
+
 - All prose (descriptions, instructions, questions, explanations) - **English**
 - Spanish words and sentences - wrap in backticks: `` `Hola, buenos días` ``
 - Warm-up descriptions - light intro, no grammar rules, no examples
@@ -258,10 +262,10 @@ you're done:
 6. **Conjugation tasks — use full sentences as answer options, not isolated words.**
    The verb being tested must appear in UPPERCASE within the full sentence so the
    learner can clearly see what is being tested.
-   ✅ `La empresa CREAR productos digitales`  (wrong — infinitive)
-   ✅ `La empresa CREAN productos digitales`  (wrong — 3rd plural)
-   ✅ `La empresa CREA productos digitales`   (correct)
-   ❌ crear  (isolated word — not enough context)
+   ✅ `La empresa CREAR productos digitales` (wrong — infinitive)
+   ✅ `La empresa CREAN productos digitales` (wrong — 3rd plural)
+   ✅ `La empresa CREA productos digitales` (correct)
+   ❌ crear (isolated word — not enough context)
    The question stem for conjugation tasks must be:
    "Which of the following sentences is conjugated correctly with the verb `[verb]`?"
 

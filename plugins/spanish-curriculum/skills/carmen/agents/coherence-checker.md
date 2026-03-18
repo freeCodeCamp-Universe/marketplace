@@ -26,6 +26,7 @@ concept list and the list of prior-level spreadsheet URLs to check against.
 ### Step 1 — Read prior levels
 
 For each prior-level spreadsheet URL provided, open the Google Sheet and read:
+
 - The **Chapter Status** sheet — to see all completed (`Merged 🎉`) modules
 - Each **chapter content sheet** — to understand what was actually taught and
   at what depth
@@ -48,12 +49,14 @@ If no prior-level URLs are provided (A1 case), skip to Step 3.
 ### Step 2 — Check for concept repetition
 
 For each concept in the proposed list, check:
+
 1. Was this concept explicitly taught at a prior level?
 2. Was a very similar concept taught that would make this redundant?
 3. Is this concept a direct repeat of something in an earlier module of the
    current level?
 
 Mark each concept as one of:
+
 - ✅ **Clear** — not taught anywhere prior
 - ⚠️ **Overlap** — taught at a prior level; note where and at what depth
 - 🔄 **Extension** — related concept was taught, but this goes deeper (acceptable
@@ -62,8 +65,8 @@ Mark each concept as one of:
 
 ### Step 3 — Check dependencies
 
-For each concept in the proposed list, ask: *could a learner encounter this
-without first knowing something else?*
+For each concept in the proposed list, ask: _could a learner encounter this
+without first knowing something else?_
 
 Check whether each prerequisite has been taught in a prior or earlier module.
 If a prerequisite is missing, flag it as a blocker.

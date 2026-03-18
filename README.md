@@ -26,9 +26,9 @@ claude --plugin-dir ./plugins/<plugin-name>
 
 ## Catalog: Plugins
 
-| Plugin                                                    | Description                                                                  | Skills                     | Status |
-| --------------------------------------------------------- | ---------------------------------------------------------------------------- | -------------------------- | ------ |
-| [fcc-spanish-curriculum](plugins/fcc-spanish-curriculum/) | Spanish curriculum pipeline — Carmen, Marcos, Curriculum. CEFR levels A1-C2. | carmen, marcos, curriculum | Active |
+| Plugin                                            | Description                                                                               | Skills                     | Status |
+| ------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------- | ------ |
+| [spanish-curriculum](plugins/spanish-curriculum/) | Professional Spanish curriculum pipeline — Carmen, Marcos, Curriculum. CEFR levels A1-C2. | carmen, marcos, curriculum | Active |
 
 ## Catalog: Skills
 

@@ -1,6 +1,6 @@
 # ── Credentials — NEVER commit these ─────────────────────────────────────────
 credentials.json
-fcc-curriculum-credentials.json
+curriculum-credentials.json
 *-credentials.json
 *.service-account.json
 .env

@@ -26,6 +26,7 @@ re-teach anything — you only reinforce what the Learn block has already establ
 ### Step A — Extract the Learn block's established elements
 
 From the Learn Planner output, list exactly:
+
 - Every verb taught in 3rd person singular (e.g., `crea`, `tiene`, `desarrolla`)
 - Every subject noun used (e.g., `La empresa`, `El departamento de…`)
 - The key structural distinction taught (e.g., `tiene` vs `hay`)
@@ -37,6 +38,7 @@ Write these out explicitly before proceeding to Step B.
 ### Step B — Map the conjugation error patterns
 
 For every verb from Step A, the three most common A1–A2 errors are always:
+
 1. **Infinitive** instead of conjugated form (e.g., `crear` instead of `crea`)
 2. **3rd person plural** instead of singular (e.g., `crean` instead of `crea`)
 3. **1st person singular** instead of 3rd (e.g., `creo` instead of `crea`)
@@ -50,15 +52,15 @@ the same pattern for their verbs. Consistency builds pattern recognition.
 
 ### Step C — Build the progression using these stages
 
-| Stage | Task type | What it tests |
-|---|---|---|
-| 1. Recognition | MC (audio) | Identify the correct company/department/detail heard |
-| 2. Conjugation isolation | MC (no audio) | Choose correct 3rd-person form over infinitive/plural/wrong-person |
-| 3. Structural discrimination | MC (no audio) | Distinguish `tiene` vs `hay`, or correct article use |
-| 4. Listening + quantity | MC (audio) | Extract a number or detail from spoken context |
-| 5. Conjugation in context | MC (audio) | Choose correct verb form after hearing the sentence |
-| 6. Reverse recall | FITB | Supply department name given its function, or verb given its subject |
-| 7. Synthesis | MC (full audio) | Connect department to function heard across full audio |
+| Stage                        | Task type       | What it tests                                                        |
+| ---------------------------- | --------------- | -------------------------------------------------------------------- |
+| 1. Recognition               | MC (audio)      | Identify the correct company/department/detail heard                 |
+| 2. Conjugation isolation     | MC (no audio)   | Choose correct 3rd-person form over infinitive/plural/wrong-person   |
+| 3. Structural discrimination | MC (no audio)   | Distinguish `tiene` vs `hay`, or correct article use                 |
+| 4. Listening + quantity      | MC (audio)      | Extract a number or detail from spoken context                       |
+| 5. Conjugation in context    | MC (audio)      | Choose correct verb form after hearing the sentence                  |
+| 6. Reverse recall            | FITB            | Supply department name given its function, or verb given its subject |
+| 7. Synthesis                 | MC (full audio) | Connect department to function heard across full audio               |
 
 Not every module needs all 7 stages. Use the established elements and available
 audio to decide which stages to include. Aim for 6–8 tasks total.
