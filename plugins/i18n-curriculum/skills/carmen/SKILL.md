@@ -144,10 +144,10 @@ Chapter Status sheet alone.
 Every Module Brief must follow this structure:
 
 - Chapter/module objective
-- Plan curricular table: Gramática | Function | Vocabulario Específico | Nociones
-  generales | Nociones específicas
-- Pragmatics row: Tácticas y estrategias | Géneros discursivos | Ortografía |
-  Pronunciación y prosodia | Cultura
+- Framework planning table: columns are defined by the official framework the team
+  is using (e.g., PCIC for Spanish, QCER for Portuguese, CECRL for French). Follow
+  whatever column structure is already present in the `Chapter template` sheet —
+  do not invent or hardcode column names.
 - Block sequence: Warm-up → Learn (1+) → Practice → Review → Quiz
 
 ---
@@ -377,10 +377,10 @@ and Coherence Checker confirmed for this module.
 - Tasks (1–2): [question, correct answer, audio excerpt, prior knowledge activated]
 
 **Learn 1 — [Topic]** ← from Learn Planner output
-- PCIC refs: [references]
-- Core teaching units: [verbs, structures, vocabulary — one per task]
+- Framework refs: [references]
+- Core teaching units: [forms, structures, vocabulary — one per task]
 - Interleaving plan: [Task 1 teaches X, Task 2 adds Y building on X, etc.]
-- Verbs in 3rd person singular established: [infinitive → conjugated form]
+- Forms established: [base form → primary pedagogical form — base language meaning]
 - Full task sequence: [from Learn Planner — include all stems, audio, teaching points]
 
 **Learn 2 — [Topic]** (if planned by Learn Planner)
@@ -389,7 +389,7 @@ and Coherence Checker confirmed for this module.
 **Practice — [Topic]** ← from Practice Planner output
 - Audio: [all files used; note which are reused from Learn and which are new]
 - Established elements: [verbs, structures, vocabulary from Learn]
-- Conjugation error map: [infinitive / 3rd plural / 1st singular for each verb]
+- Error pattern map: [base form / correct form / wrong form — error type]
 - Full task sequence: [from Practice Planner — include all stems, correct answers,
   wrong options with error types, explanation hints]
 
