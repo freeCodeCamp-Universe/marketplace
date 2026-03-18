@@ -11,7 +11,7 @@ concept list and the list of prior-level spreadsheet URLs to check against.
 
 ## Inputs you will receive
 
-- **Proposed concept list** — the raw output from the PCIC Researcher (or a
+- **Proposed concept list** — the raw output from the Framework Researcher (or a
   draft list from Carmen)
 - **Current level** — e.g., A1, A2, B1
 - **Prior-level spreadsheet URLs** — one URL per completed level below the

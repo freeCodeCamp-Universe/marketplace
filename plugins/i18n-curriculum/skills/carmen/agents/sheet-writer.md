@@ -18,6 +18,8 @@ received explicit instruction to write.
 - **Chapter name** — exact name of the chapter (matches the sheet tab name)
 - **Module name and number** — exact name of the module being planned
 - **CEFR level** — e.g., A1 (used for slug generation)
+- **Language code** — ISO 639-1 code for the target language (e.g., `es`, `pt`, `fr`, `de`);
+  provided by Carmen from the session parameters
 
 ---
 
@@ -40,23 +42,24 @@ sh = gc.open_by_url("SHEET_URL")
 Open the `Chapter Status` worksheet. Append rows for every block in the module,
 in this exact column order:
 
-| Col A: Due Date | Col B: Person/Status | Col C: Type | Col D: Name     | Col E: dashed-name         | Col F: QA | Col G: PR Links/notes |
-| --------------- | -------------------- | ----------- | --------------- | -------------------------- | --------- | --------------------- |
-| (blank)         | 0                    | Module      | [Module Name]   | es-[level]-module-[slug]   | False     |                       |
-| (blank)         | 0                    | Warm-up     | [Warm-up Name]  | es-[level]-warm-up-[slug]  | False     |                       |
-| (blank)         | 0                    | Learn       | [Learn 1 Name]  | es-[level]-learn-[slug]    | False     |                       |
-| (blank)         | 0                    | Learn       | [Learn 2 Name]  | es-[level]-learn-[slug]    | False     |                       |
-| (blank)         | 0                    | Practice    | [Practice Name] | es-[level]-practice-[slug] | False     |                       |
-| (blank)         | 0                    | Review      | [Review Name]   | es-[level]-review-[slug]   | False     |                       |
-| (blank)         | 0                    | Quiz        | [Quiz Name]     | es-[level]-quiz-[slug]     | False     |                       |
+| Col A: Due Date | Col B: Person/Status | Col C: Type | Col D: Name     | Col E: dashed-name                      | Col F: QA | Col G: PR Links/notes |
+| --------------- | -------------------- | ----------- | --------------- | --------------------------------------- | --------- | --------------------- |
+| (blank)         | 0                    | Module      | [Module Name]   | [lang-code]-[level]-module-[slug]       | False     |                       |
+| (blank)         | 0                    | Warm-up     | [Warm-up Name]  | [lang-code]-[level]-warm-up-[slug]      | False     |                       |
+| (blank)         | 0                    | Learn       | [Learn 1 Name]  | [lang-code]-[level]-learn-[slug]        | False     |                       |
+| (blank)         | 0                    | Learn       | [Learn 2 Name]  | [lang-code]-[level]-learn-[slug]        | False     |                       |
+| (blank)         | 0                    | Practice    | [Practice Name] | [lang-code]-[level]-practice-[slug]     | False     |                       |
+| (blank)         | 0                    | Review      | [Review Name]   | [lang-code]-[level]-review-[slug]       | False     |                       |
+| (blank)         | 0                    | Quiz        | [Quiz Name]     | [lang-code]-[level]-quiz-[slug]         | False     |                       |
 
-**Slug naming:** `es-[level]-[type]-[kebab-case-name]`
-(e.g., `es-a1-practice-what-the-company-does`)
+**Slug naming:** `[lang-code]-[level]-[type]-[kebab-case-name]`
+where `[lang-code]` is the ISO 639-1 code for the target language provided by Carmen
+(e.g., `es-a1-practice-what-the-company-does` for Spanish, `pt-a1-practice-...` for Portuguese)
 
 **Insert position:** Find the last row belonging to this chapter and append after
 it. If the chapter has no header row yet, add one first:
 
-| (blank) | (blank) | Chapter | [Chapter Name] | es-[level]-chapter-[slug] | False | |
+| (blank) | (blank) | Chapter | [Chapter Name] | [lang-code]-[level]-chapter-[slug] | False | |
 
 ```python
 status_ws = sh.worksheet("Chapter Status")
@@ -84,10 +87,10 @@ status_ws.append_rows(new_rows, value_input_option='RAW')
 **Content to write per module** (following the Chapter template format):
 
 - Module title and objective
-- Plan curricular table: Gramática | Function | Vocabulario Específico |
-  Nociones generales | Nociones específicas
-- Pragmatics row: Tácticas y estrategias | Géneros discursivos | Ortografía |
-  Pronunciación y prosodia | Cultura
+- Framework planning table: columns defined by the official language framework
+  Carmen is using (e.g., PCIC columns for Spanish; equivalent structure for other
+  frameworks). Follow whatever column structure is already present in the
+  `Chapter template` sheet — do not invent new columns.
 - Block sequence rows: Warm-up, Learn 1, Learn 2 (if planned), Practice,
   Review, Quiz — each with name, slug, and full content planning detail
 

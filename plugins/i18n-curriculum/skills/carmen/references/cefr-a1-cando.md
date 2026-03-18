@@ -1,7 +1,11 @@
-# CEFR A1 Can-Do Statements — Spanish Reference
+# CEFR A1 Can-Do Statements — Template
+
+> **This is a template.** Each language team should copy this file, rename it
+> to reflect their target language (e.g., `cefr-a1-cando-spanish.md`), and
+> replace the communicative function examples with target language examples.
+> The CEFR can-do statements themselves are language-neutral and can be kept as-is.
 
 Source: Common European Framework of Reference for Languages (CEFR)
-Adapted for A1 Professional Spanish (freeCodeCamp curriculum)
 
 ---
 
@@ -62,44 +66,45 @@ Adapted for A1 Professional Spanish (freeCodeCamp curriculum)
 
 ## Key Communicative Functions at A1
 
-These are the core functions Carmen should use to anchor module design:
+These are the core functions Carmen uses to anchor module design. Replace the
+example column with target language examples when creating a language-specific version.
 
-| Function                       | Spanish example                     |
-| ------------------------------ | ----------------------------------- |
-| Greet and say goodbye          | Hola, buenos días, hasta luego      |
-| Introduce yourself             | Me llamo…, Soy…                     |
-| Introduce others               | Ella es…, Te presento a…            |
-| Ask/give name                  | ¿Cómo te llamas? / Me llamo…        |
-| Ask/give nationality           | ¿De dónde eres? / Soy de…           |
-| Ask/give profession            | ¿A qué te dedicas? / Soy diseñadora |
-| Ask/give address               | ¿Dónde vives? / Vivo en…            |
-| Ask/give age                   | ¿Cuántos años tienes? / Tengo…      |
-| Express quantity (numbers)     | uno, dos, tres… / hay + number      |
-| Describe people (basic)        | Es alto/baja, tiene pelo negro      |
-| Ask about and express time     | ¿Qué hora es? / Son las…            |
-| Make simple requests           | ¿Puedes…? / ¿Me das…?               |
-| Express likes/dislikes (basic) | Me gusta / No me gusta              |
-| Confirm and deny               | Sí, no, claro, exacto               |
+| Function                       | Target language example         |
+| ------------------------------ | ------------------------------- |
+| Greet and say goodbye          | [greeting / farewell phrase]    |
+| Introduce yourself             | [self-introduction phrase]      |
+| Introduce others               | [third-party introduction]      |
+| Ask/give name                  | [name question / answer]        |
+| Ask/give nationality           | [nationality question / answer] |
+| Ask/give profession            | [profession question / answer]  |
+| Ask/give address               | [address question / answer]     |
+| Ask/give age                   | [age question / answer]         |
+| Express quantity (numbers)     | [quantity expression]           |
+| Describe people (basic)        | [basic description phrase]      |
+| Ask about and express time     | [time question / answer]        |
+| Make simple requests           | [simple request form]           |
+| Express likes/dislikes (basic) | [like / dislike expression]     |
+| Confirm and deny               | [yes / no / agreement words]    |
 
 ---
 
-## PCIC → CEFR Mapping Notes
+## Framework → CEFR Mapping Notes
 
-The PCIC (Plan Curricular del Instituto Cervantes) inventory spans A1–A2 together.
-When selecting concepts for **A1-only** modules, apply these filters:
+When selecting concepts for **A1-only** modules, apply these filters regardless
+of the official framework (PCIC, QCER, CECRL, etc.):
 
 - ✅ Include: Concepts that enable the communicative functions listed above
 - ✅ Include: High-frequency, concrete, situational language
-- ⚠️ Flag for A2: Subjunctive, reflexive verbs (advanced use), complex tenses beyond
-  present indicative and simple past, compound sentences with subordination
-- ❌ Exclude: Low-frequency grammar, abstract notions, professional register beyond
-  basic job titles
+- ⚠️ Flag for A2: Complex tenses beyond the present, reflexive verbs (advanced
+  use), compound sentences with subordination
+- ❌ Exclude: Low-frequency grammar, abstract notions, professional register
+  beyond basic job titles
 
 ---
 
 ## Reference Links
 
 - CEFR official: https://www.coe.int/en/web/common-european-framework-reference-languages
-- PCIC Grammar: https://cvc.cervantes.es/ensenanza/biblioteca_ele/plan_curricular/niveles/02_gramatica_inventario_a1-a2.htm
-- PCIC Pronunciation: https://cvc.cervantes.es/ensenanza/biblioteca_ele/plan_curricular/niveles/03_pronunciacion_inventario_a1-a2.htm
-- PCIC Notions: https://cvc.cervantes.es/ensenanza/biblioteca_ele/plan_curricular/niveles/06_nociones_especificas_inventario_a1-a2.htm
+
+Add the official framework link for your target language below:
+- [Framework name for target language]: [URL]

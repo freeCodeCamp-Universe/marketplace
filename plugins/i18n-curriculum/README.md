@@ -1,6 +1,9 @@
-# Spanish Curriculum Plugin
+# i18n Curriculum Plugin
 
-A multi-agent pipeline for building the Professional Spanish course across CEFR levels A1–C2.
+A multi-agent pipeline for building language curriculum content across CEFR levels A1–C2.
+Works with any target language — Spanish, Portuguese, French, German, and beyond.
+
+> **Note:** Carmen and Marcos are internal codenames for the researcher/planner and task creator agents. The names are not language-specific.
 
 ---
 
@@ -8,8 +11,8 @@ A multi-agent pipeline for building the Professional Spanish course across CEFR 
 
 | Agent                 | Command       | Role                                                                                                                                             |
 | --------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Dra. Carmen Vidal** | `/carmen`     | Researcher & planner — reads the Google Sheets planning spreadsheet, maps PCIC concepts, writes detailed task sequences with `—carmen` signature |
-| **Marcos Ibáñez**     | `/marcos`     | Task creator — reads Carmen's plan from Google Sheets and writes `.md` task files directly into a cloned Git repo on a feature branch            |
+| **Carmen** | `/carmen`     | Researcher & planner — reads the Google Sheets planning spreadsheet, maps language framework concepts, writes detailed task sequences with `—carmen` signature |
+| **Marcos** | `/marcos`     | Task creator — reads Carmen's plan from Google Sheets and writes `.md` task files directly into a cloned Git repo on a feature branch                          |
 | **Curriculum**        | `/curriculum` | Orchestrator — runs Carmen → Marcos in sequence with a review checkpoint in between                                                              |
 
 Plus a **task validation hook** that automatically checks every `.md` file Marcos writes for structural correctness.
@@ -25,7 +28,7 @@ High-level summary:
 1. Admin creates a Google Cloud service account and shares the credentials JSON with the team
 2. Each team member stores the JSON as the `GOOGLE_SERVICE_ACCOUNT_JSON` environment variable
 3. Each team member clones the curriculum Git repo
-4. Optionally: each team member adds their GitHub token to `.mcp.json` for PR creation
+4. Each team member installs and authenticates the GitHub CLI (`gh auth login`) for PR creation
 
 ---
 
@@ -33,7 +36,7 @@ High-level summary:
 
 Extract the plugin zip, then open the Claude desktop app:
 
-- **Mac/Linux**: Settings → Plugins → Install from folder → select `spanish-curriculum/`
+- **Mac/Linux**: Settings → Plugins → Install from folder → select `i18n-curriculum/`
 - **Windows**: Same path using the Windows folder picker
 
 All three slash commands appear immediately after installation.
@@ -66,7 +69,7 @@ Sheet: https://docs.google.com/spreadsheets/d/SHEET_ID/edit
 
 ```
 /marcos — create tasks for "Describing a Company" chapter, module 2
-Repo: /Users/yourname/projects/spanish-curriculum-content
+Repo: /Users/yourname/projects/your-curriculum-repo
 Sheet: https://docs.google.com/spreadsheets/d/SHEET_ID/edit
 ```
 
@@ -124,9 +127,9 @@ Warnings only — the file is still created, but flagged for review.
 
 ---
 
-## GitHub MCP (optional)
+## GitHub CLI — PR creation
 
-With the GitHub MCP configured (see `setup/credentials-setup.md`), Marcos can open draft PRs directly from a session after writing task files. Carmen can also check which modules are merged vs in review, tying back to the "PR Links/notes" column in the Chapter Status sheet.
+After Marcos finishes creating task files, he will provide a ready-to-run `gh pr create` command. Run it in your terminal to open a draft PR. No token or plugin configuration is needed — just the GitHub CLI installed and authenticated (`gh auth login`).
 
 ---
 

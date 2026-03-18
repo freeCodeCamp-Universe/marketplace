@@ -2,10 +2,10 @@
 
 Each CEFR level has its own spreadsheet. All follow the same structure.
 
-Current files:
+Each team names their spreadsheets according to their language and level, e.g.:
 
-- **A1:** `CL-A1 Spanish Planning-updated.xlsx`
-- Future levels will follow the same naming pattern (e.g., `CL-A2 Spanish Planning.xlsx`)
+- `[lang-code]-[level] Curriculum Planning` (e.g., `es-a1 Curriculum Planning`)
+- Future levels follow the same naming pattern
 
 ---
 
@@ -19,7 +19,7 @@ Current files:
 | Person/Status  | Text                 | Name (in progress), `Merged 🎉` (complete), or a number (unassigned backlog) |
 | Type           | Text                 | `Chapter`, `Module`, `Learn`, `Warm-up`, `Practice`, `Review`, `Quiz`        |
 | Name           | Human-readable title |                                                                              |
-| dashed-name    | Text                 | URL slug — always `es-[level]-[type]-[kebab-case]`                           |
+| dashed-name    | Text                 | URL slug — always `[lang-code]-[level]-[type]-[kebab-case]`                  |
 | QA             | Boolean              | True = passed quality review                                                 |
 | PR Links/notes | Text                 | GitHub PR URL or notes                                                       |
 
@@ -46,18 +46,20 @@ Chapter  (Type = "Chapter")
 
 ---
 
-## Grammar / Pronunciation / Ortography Sheets — PCIC Concept Inventory
+## Framework Concept Inventory Sheets (e.g., Grammar / Pronunciation / Orthography)
 
-These contain the raw PCIC reference material for the level. Header row structure:
+These contain the official language framework reference material for the level.
+Tab names vary by team and framework — Carmen confirms which tabs are in use at
+session start. Typical header row structure:
 
 ```
 Section | Subsection / Item | Topic | Example / Notes | Block 1 | Block 2 | Block 3
 ```
 
-- **Section** — broad grammar/pronunciation/ortography category
-- **Subsection / Item** — PCIC section number (e.g., `1.2. El género de los sustantivos`)
+- **Section** — broad category (grammar domain, pronunciation area, etc.)
+- **Subsection / Item** — framework reference number or code
 - **Topic** — the specific teachable concept
-- **Example / Notes** — sample language or clarifying notes
+- **Example / Notes** — sample language in the target language or clarifying notes
 - **Block 1–3** — which curriculum blocks cover this concept (often empty; don't rely on these alone)
 
 ---
@@ -82,42 +84,34 @@ Structure:
 
 1. Chapter objective
 2. Module title and learning goal
-3. Plan curricular table (Gramática | Function | Vocabulario | Nociones | etc.)
-4. Pragmatics row (Tácticas | Géneros | Ortografía | Pronunciación | Cultura)
-5. Block sequence rows (Warm-up, Learn, Practice, Review, Quiz)
+3. Framework planning table (columns defined by the official framework in use —
+   follow the structure already present in this sheet)
+4. Block sequence rows (Warm-up, Learn, Practice, Review, Quiz)
 
 ---
 
 ## URL Slug Naming Conventions
 
-Slugs follow this pattern: `es-[level]-[type]-[kebab-case-name]`
+Slugs follow this pattern: `[lang-code]-[level]-[type]-[kebab-case-name]`
 
-| CEFR Level | Level code | Example slug                           |
-| ---------- | ---------- | -------------------------------------- |
-| A1         | `a1`       | `es-a1-learn-greetings-during-the-day` |
-| A2         | `a2`       | `es-a2-learn-preterite-regular-verbs`  |
-| B1         | `b1`       | `es-b1-learn-subjunctive-introduction` |
+Where `[lang-code]` is the ISO 639-1 code for the target language (e.g., `es`
+for Spanish, `pt` for Portuguese, `fr` for French, `de` for German).
 
-| Block Type | Slug type segment | Example                                         |
-| ---------- | ----------------- | ----------------------------------------------- |
-| Chapter    | `chapter`         | `es-a1-chapter-spanish-fundamentals`            |
-| Module     | `module`          | `es-a1-module-letters-sounds-and-first-numbers` |
-| Learn      | `learn`           | `es-a1-learn-vowels`                            |
-| Warm-up    | `warm-up`         | `es-a1-warm-up-greetings-basics`                |
-| Practice   | `practice`        | `es-a1-practice-the-alphabet`                   |
-| Review     | `review`          | `es-a1-review-spanish-fundamentals`             |
-| Quiz       | `quiz`            | `es-a1-quiz-spanish-fundamentals`               |
+| CEFR Level | Level code | Example slug (Spanish)                    |
+| ---------- | ---------- | ----------------------------------------- |
+| A1         | `a1`       | `es-a1-learn-greetings-during-the-day`    |
+| A2         | `a2`       | `es-a2-learn-preterite-regular-verbs`     |
+| B1         | `b1`       | `es-b1-learn-subjunctive-introduction`    |
 
----
+| Block Type | Slug type segment | Example (Spanish A1)                              |
+| ---------- | ----------------- | ------------------------------------------------- |
+| Chapter    | `chapter`         | `es-a1-chapter-target-language-fundamentals`      |
+| Module     | `module`          | `es-a1-module-letters-sounds-and-first-numbers`   |
+| Learn      | `learn`           | `es-a1-learn-vowels`                              |
+| Warm-up    | `warm-up`         | `es-a1-warm-up-greetings-basics`                  |
+| Practice   | `practice`        | `es-a1-practice-the-alphabet`                     |
+| Review     | `review`          | `es-a1-review-target-language-fundamentals`       |
+| Quiz       | `quiz`            | `es-a1-quiz-target-language-fundamentals`         |
 
-## A1 Curriculum Status (current snapshot)
-
-| #   | Chapter                             | Modules                                  | Status              |
-| --- | ----------------------------------- | ---------------------------------------- | ------------------- |
-| 0   | Welcome to A1 Professional Spanish  | —                                        | Chapter header only |
-| 1   | Spanish Fundamentals                | Module 1: Letters, Sounds, First Numbers | ✅ Complete         |
-| 2   | Greetings and Introductions         | Module 1: Greetings and Farewells        | ✅ Complete         |
-| 3   | Describing a Company and Its People | Multiple modules                         | 🔄 In progress      |
-
-Always re-read the Chapter Status sheet to get the current state — this table
-may be out of date.
+Always re-read the Chapter Status sheet for the current curriculum state — do
+not rely on any static snapshot here.

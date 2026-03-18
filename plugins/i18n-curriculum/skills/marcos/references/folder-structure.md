@@ -29,8 +29,8 @@ Use the exact names as written — don't abbreviate, slug-ify, or rephrase them.
 ## Real Examples
 
 ```
-Describing a Company and Its People/
-└── Module 2 - Company Departments and Roles/
+[Chapter Name — e.g. "Describing a Company and Its People"]/
+└── [Module Name — e.g. "Module 2 - Company Departments and Roles"]/
     ├── WARM-UP_task-1.md
     ├── LEARN_task-1.md
     ├── LEARN_task-2.md
@@ -41,8 +41,8 @@ Describing a Company and Its People/
     ├── REVIEW-GLOSSARY_task-1.md
     └── QUIZ_task-1.md
 
-Spanish Fundamentals/
-└── Module 1 - Letters, Sounds and First Numbers/
+[Chapter Name — e.g. "[Target Language] Fundamentals"]/
+└── [Module Name — e.g. "Module 1 - Letters, Sounds and First Numbers"]/
     ├── WARM-UP_task-1.md
     ├── LEARN_task-1.md
     ├── LEARN_task-2.md

@@ -13,7 +13,7 @@ One person on the team creates the service account and shares the credentials wi
 
 1. Go to [console.cloud.google.com](https://console.cloud.google.com)
 2. Click the project dropdown at the top → **New Project**
-3. Name it `spanish-curriculum` → **Create**
+3. Name it `i18n-curriculum` → **Create**
 
 ### Step 2 — Enable the Google Sheets API
 
@@ -112,37 +112,26 @@ Marcos writes task files directly into a cloned Git repository. Each team member
 ### Step 1 — Clone the curriculum repo
 
 ```bash
-git clone https://github.com/YOUR_ORG/spanish-curriculum-content.git
-cd spanish-curriculum-content
+git clone https://github.com/YOUR_ORG/YOUR_CURRICULUM_REPO.git
+cd YOUR_CURRICULUM_REPO
 ```
 
-### Step 2 — Set up the GitHub MCP (optional, for PR creation from sessions)
+### Step 2 — Set up the GitHub CLI (for PR creation)
 
-If you want Marcos to be able to open GitHub PRs directly from a session:
+Marcos instructs you to open PRs using the GitHub CLI (`gh`). Make sure it is
+installed and authenticated before your first session:
 
-1. Go to [github.com/settings/tokens](https://github.com/settings/tokens)
-2. **Generate new token (classic)**
-3. Name: `spanish-curriculum-plugin`
-4. Scopes: check `repo` (full control)
-5. Copy the token
+```bash
+# Install (if not already installed)
+# Mac:   brew install gh
+# Linux: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 
-Open the plugin's `.mcp.json` file and replace `REPLACE_WITH_YOUR_GITHUB_TOKEN`:
-
-```json
-{
-  "mcpServers": {
-    "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_yourTokenHere"
-      }
-    }
-  }
-}
+# Authenticate
+gh auth login
 ```
 
-Restart the Claude desktop app to activate.
+Marcos will provide the exact `gh pr create` command at the end of each session.
+You run it yourself — no token or plugin configuration is required.
 
 ---
 

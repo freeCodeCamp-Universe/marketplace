@@ -1,0 +1,10 @@
+{
+  "name": "i18n-curriculum",
+  "version": "1.0.0",
+  "description": "Multi-language i18n Curriculum pipeline — Carmen (researcher/planner), Marcos (task creator), Curriculum (orchestrator). Works across all CEFR levels A1–C2 for any target language.",
+  "author": {
+    "name": "freeCodeCamp"
+  },
+  "keywords": ["i18n", "curriculum", "CEFR", "multilingual", "language"],
+  "hooks": "./hooks/hooks.json"
+}
