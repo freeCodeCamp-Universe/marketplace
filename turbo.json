@@ -1,13 +1,32 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "validate": {},
-    "test": {},
-    "lint": {},
-    "format": {},
-    "format:check": {},
+    "validate:raw": {
+      "inputs": [
+        "plugins/**/.claude-plugin/plugin.json",
+        "plugins/**/skills/**/SKILL.md",
+        "skills/**/SKILL.md",
+        "scripts/validate.ts"
+      ],
+      "cache": false
+    },
+    "test:raw": {
+      "inputs": ["scripts/**/*.ts", "tests/**/*.ts", "vitest.config.ts"],
+      "outputs": []
+    },
+    "lint:raw": {
+      "inputs": ["**/*.ts", "**/*.js", ".oxlintrc.json"],
+      "outputs": []
+    },
+    "format:check:raw": {
+      "inputs": ["**/*.ts", "**/*.js", "**/*.json", "**/*.md"],
+      "outputs": []
+    },
+    "format": {
+      "cache": false
+    },
     "check": {
-      "dependsOn": ["validate", "test", "lint", "format:check"]
+      "dependsOn": ["validate:raw", "test:raw", "lint:raw", "format:check:raw"]
     }
   }
 }

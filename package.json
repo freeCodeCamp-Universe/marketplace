@@ -4,24 +4,38 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest run",
-    "validate": "tsx scripts/validate.ts",
+    "test": "turbo run test:raw",
+    "test:raw": "vitest run",
+    "validate": "turbo run validate:raw",
+    "validate:raw": "tsx scripts/validate.ts",
     "scaffold": "tsx scripts/scaffold.ts",
-    "lint": "oxlint .",
+    "lint": "turbo run lint:raw",
+    "lint:raw": "oxlint .",
     "format": "oxfmt --write .",
-    "format:check": "oxfmt --check ."
+    "format:check": "turbo run format:check:raw",
+    "format:check:raw": "oxfmt --check .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@clack/prompts": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "oxfmt": "^0.41.0",
     "oxlint": "^1.56.0",
     "tsx": "^4.21.0",
     "turbo": "^2.8.17",
     "typescript": "^5.9.3",
     "vitest": "^4.1.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "oxlint",
+      "oxfmt --check"
+    ],
+    "*.{json,md,yaml,yml}": "oxfmt --check"
   },
   "engines": {
     "node": ">=22"

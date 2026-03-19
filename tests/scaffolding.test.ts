@@ -56,21 +56,21 @@ describe("project scaffolding", () => {
 
   it("turbo.json has all required tasks", () => {
     const turbo = readJSON("turbo.json");
-    expect(turbo.tasks).toHaveProperty("validate");
-    expect(turbo.tasks).toHaveProperty("test");
-    expect(turbo.tasks).toHaveProperty("lint");
+    expect(turbo.tasks).toHaveProperty("validate:raw");
+    expect(turbo.tasks).toHaveProperty("test:raw");
+    expect(turbo.tasks).toHaveProperty("lint:raw");
     expect(turbo.tasks).toHaveProperty("format");
-    expect(turbo.tasks).toHaveProperty("format:check");
+    expect(turbo.tasks).toHaveProperty("format:check:raw");
     expect(turbo.tasks).toHaveProperty("check");
   });
 
-  it("turbo.json check task depends on validate, test, lint, format:check", () => {
+  it("turbo.json check task depends on validate:raw, test:raw, lint:raw, format:check:raw", () => {
     const turbo = readJSON("turbo.json");
     const checkDeps = turbo.tasks.check.dependsOn;
-    expect(checkDeps).toContain("validate");
-    expect(checkDeps).toContain("test");
-    expect(checkDeps).toContain("lint");
-    expect(checkDeps).toContain("format:check");
+    expect(checkDeps).toContain("validate:raw");
+    expect(checkDeps).toContain("test:raw");
+    expect(checkDeps).toContain("lint:raw");
+    expect(checkDeps).toContain("format:check:raw");
   });
 
   it("vitest.config.ts exists", () => {
