@@ -35,6 +35,7 @@ claude --plugin-dir ./plugins/<plugin-name>
 | Skill                                                | Description                                                                                           | Status    |
 | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | --------- |
 | [hello-world](skills/hello-world/)                   | Reference skill demonstrating every SKILL.md section and pattern. Use as a template and test fixture. | Reference |
+| [command-line-chic](skills/command-line-chic/)       | freeCodeCamp's "Command-line Chic" UI design system and aesthetic guidelines.                         | Active    |
 | [sync-issue-templates](skills/sync-issue-templates/) | Sync GitHub issue templates from an org's .github repo into the current repository.                   | Active    |
 
 ## Catalog: Agents
