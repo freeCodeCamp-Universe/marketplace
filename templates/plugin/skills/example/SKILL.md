@@ -3,6 +3,8 @@ name: example-skill
 description: >
   Short description of what this skill does. Replace this with your own
   description. Invoke with /example-skill.
+metadata:
+  internal: true
 ---
 
 # Example Skill

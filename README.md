@@ -16,6 +16,12 @@ Install portable skills to your preferred AI coding tool:
 npx skills add freeCodeCamp/fCC-AI-Marketplace
 ```
 
+To install a single skill:
+
+```sh
+npx skills add freeCodeCamp/fCC-AI-Marketplace --skill command-line-chic
+```
+
 ### Claude Code Full Plugin
 
 For the complete experience including hooks, MCP servers, and agents:

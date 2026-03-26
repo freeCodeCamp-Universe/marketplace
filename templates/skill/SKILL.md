@@ -4,6 +4,8 @@ description: >
   Short description of what this skill does. This text is used by tools to
   decide when to invoke the skill, so be specific about triggers and scope.
   Invoke with /skill-name.
+metadata:
+  internal: true
 ---
 
 # Skill Name
