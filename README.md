@@ -1,4 +1,4 @@
-# fCC AI Marketplace
+# Marketplace
 
 Portable AI skills and agents for freeCodeCamp, plus Claude Code plugin bundles
 for richer workflows.

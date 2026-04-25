@@ -1,4 +1,4 @@
-# Contributing to fCC AI Marketplace
+# Contributing to Marketplace
 
 ## Overview
 

@@ -1,4 +1,4 @@
-# fCC AI Marketplace Agent Instructions
+# Marketplace Agent Instructions
 
 ## Purpose
 

@@ -1,4 +1,4 @@
-# fCC AI Marketplace
+# Marketplace
 
 Public repository of modular plugins and skills for freeCodeCamp staff and maintainers.
 

@@ -1,7 +1,7 @@
 ---
 name: hello-world
 description: >
-  Reference agent for the fCC AI Marketplace. Demonstrates the agent definition
+  Reference agent for the Marketplace. Demonstrates the agent definition
   format with frontmatter, persona, behavior, and constraints.
 ---
 
