@@ -1,0 +1,11 @@
+{
+  "name": "spanish-curriculum",
+  "description": "Professional Spanish curriculum pipeline across CEFR levels A1-C2. Carmen researches and plans modules; Marcos creates tasks; Curriculum orchestrates the pipeline.",
+  "version": "1.0.0",
+  "author": {
+    "name": "freeCodeCamp"
+  },
+  "keywords": ["spanish", "curriculum", "CEFR"],
+  "skills": ["carmen", "curriculum", "marcos"],
+  "adapters": ["claude"]
+}

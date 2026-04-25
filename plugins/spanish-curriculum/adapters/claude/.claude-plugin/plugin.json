@@ -6,6 +6,5 @@
     "name": "freeCodeCamp"
   },
   "keywords": ["spanish", "curriculum", "CEFR", "A1"],
-  "hooks": "./hooks/hooks.json",
-  "mcpServers": "./.mcp.json"
+  "hooks": "./hooks/hooks.json"
 }

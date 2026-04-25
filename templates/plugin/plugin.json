@@ -1,0 +1,11 @@
+{
+  "name": "plugin-name",
+  "description": "One-line description of what this plugin does",
+  "version": "1.0.0",
+  "author": {
+    "name": "freeCodeCamp"
+  },
+  "keywords": [],
+  "skills": ["plugin-name"],
+  "adapters": []
+}

@@ -1,0 +1,9 @@
+{
+  "name": "plugin-name",
+  "description": "One-line description of what this Claude-native plugin does",
+  "version": "1.0.0",
+  "author": {
+    "name": "freeCodeCamp"
+  },
+  "keywords": []
+}

@@ -1,7 +1,7 @@
 ---
 name: hello-world
 description: >
-  Reference skill for the fCC AI Marketplace. Demonstrates every recommended
+  Reference skill for the Marketplace. Demonstrates every recommended
   SKILL.md section and pattern. Use as a template when creating new skills, or
   invoke with /hello-world to learn how skills work. Triggers: "hello",
   "reference skill", "skill example", "how to write a skill".

@@ -1,34 +1,30 @@
-# fCC AI Marketplace
+# Marketplace
 
-Portable AI skills and agents for freeCodeCamp, plus Claude Code plugin bundles
-for richer workflows.
+Portable AI skills and agents for freeCodeCamp, plus per-tool plugin bundles for richer workflows.
 
 ## What This Repo Publishes
 
-| Type    | Path                                                 | Portability                                                                       |
-| ------- | ---------------------------------------------------- | --------------------------------------------------------------------------------- |
-| Plugins | `plugins/<name>/`                                    | Claude Code-specific bundle with manifest, hooks, MCP config, and packaged skills |
-| Skills  | `skills/<name>/` and `plugins/<name>/skills/<name>/` | Portable `SKILL.md` packages following the Agent Skills format                    |
-| Agents  | `agents/*.md` and plugin-local `agents/*.md`         | Portable Markdown prompts with `name` and `description` frontmatter               |
+- **Skills** — portable `SKILL.md` packages following the [Agent Skills](https://agentskills.io) standard. Live under `skills/<name>/` and `plugins/<name>/skills/<name>/`.
+- **Agents** — portable Markdown prompts with `name` + `description` frontmatter. Live under `agents/*.md` and plugin-local `agents/*.md`.
+- **Plugins** — bundles that pair portable skills/agents with per-tool adapters. Live under `plugins/<name>/`. Claude-only plugins (no portable counterpart) live under `claude-native/<name>/`.
 
-Claude Code-specific behavior belongs in plugin manifests, hooks, MCP config, or
-plugin docs. Canonical skills and agents stay tool-agnostic.
+Tool-specific behavior (manifests, hooks, MCP configs) belongs to a single adapter under `plugins/<name>/adapters/<tool>/`. Skills and agents stay tool-agnostic.
 
 ## Install
 
-Install portable skills into any compatible tool:
+Portable skills (any compatible tool):
 
 ```sh
 npx skills add freeCodeCamp/fCC-AI-Marketplace
 ```
 
-Install one skill:
+A single skill:
 
 ```sh
 npx skills add freeCodeCamp/fCC-AI-Marketplace --skill command-line-chic
 ```
 
-Use a full Claude Code plugin:
+A full Claude Code plugin:
 
 ```sh
 claude --plugin-dir ./plugins/<plugin-name>
@@ -36,51 +32,52 @@ claude --plugin-dir ./plugins/<plugin-name>
 
 ## Catalog
 
+<!-- catalog:start -->
+
 ### Plugins
 
-| Plugin                                            | Description                                                        | Skills                     | Status |
-| ------------------------------------------------- | ------------------------------------------------------------------ | -------------------------- | ------ |
-| [spanish-curriculum](plugins/spanish-curriculum/) | Professional Spanish curriculum pipeline across CEFR levels A1-C2. | carmen, curriculum, marcos | Active |
+- [spanish-curriculum](plugins/spanish-curriculum/) — Professional Spanish curriculum pipeline across CEFR levels A1-C2.
 
 ### Standalone Skills
 
-| Skill                                                | Description                                                              | Status    |
-| ---------------------------------------------------- | ------------------------------------------------------------------------ | --------- |
-| [command-line-chic](skills/command-line-chic/)       | freeCodeCamp UI design system and aesthetic guidelines.                  | Active    |
-| [hello-world](skills/hello-world/)                   | Reference skill demonstrating the marketplace skill format.              | Reference |
-| [sync-issue-templates](skills/sync-issue-templates/) | Sync GitHub issue templates from an organization's `.github` repository. | Active    |
+- [command-line-chic](skills/command-line-chic/) — freeCodeCamp's "Command-line Chic" UI design system and aesthetic guidelines.
+- [hello-world](skills/hello-world/) — Reference skill for the Marketplace.
+- [sync-issue-templates](skills/sync-issue-templates/) — Sync GitHub issue templates from an organization's .github repo into the current repository.
 
 ### Plugin Skills
 
-| Skill                                                       | Plugin             | Description                                                          | Status |
-| ----------------------------------------------------------- | ------------------ | -------------------------------------------------------------------- | ------ |
-| [carmen](plugins/spanish-curriculum/skills/carmen/)         | spanish-curriculum | Research, plan, and refine Spanish curriculum modules.               | Active |
-| [curriculum](plugins/spanish-curriculum/skills/curriculum/) | spanish-curriculum | Coordinate the Carmen to Marcos planning and task creation workflow. | Active |
-| [marcos](plugins/spanish-curriculum/skills/marcos/)         | spanish-curriculum | Generate task files from planned Spanish curriculum modules.         | Active |
+- [carmen](plugins/spanish-curriculum/skills/carmen/) — Research, plan, or refine freeCodeCamp Spanish curriculum content across ALL CEFR levels (A1–C2). (`spanish-curriculum`)
+- [curriculum](plugins/spanish-curriculum/skills/curriculum/) — Orchestrates Carmen → Marcos workflow for freeCodeCamp Spanish curriculum development. (`spanish-curriculum`)
+- [marcos](plugins/spanish-curriculum/skills/marcos/) — Reads Carmen's planned module directly from the planning spreadsheet and produces ready-to-review .md task files, organized into a chapter/module folder structure for the i18n & UI Strategist. (`spanish-curriculum`)
 
 ### Shared Agents
 
-| Agent                                | Description                                                         | Status    |
-| ------------------------------------ | ------------------------------------------------------------------- | --------- |
-| [hello-world](agents/hello-world.md) | Reference agent demonstrating the portable agent definition format. | Reference |
+- [hello-world](agents/hello-world.md) — Reference agent for the Marketplace.
 
-Plugin-local agents are indexed in [AGENTS.md](AGENTS.md) and referenced from
-their owning skill.
+### Plugin-Local Agents
+
+- [coherence-checker](plugins/spanish-curriculum/skills/carmen/agents/coherence-checker.md) — `spanish-curriculum/carmen`
+- [learn-planner](plugins/spanish-curriculum/skills/carmen/agents/learn-planner.md) — `spanish-curriculum/carmen`
+- [pcic-researcher](plugins/spanish-curriculum/skills/carmen/agents/pcic-researcher.md) — `spanish-curriculum/carmen`
+- [practice-planner](plugins/spanish-curriculum/skills/carmen/agents/practice-planner.md) — `spanish-curriculum/carmen`
+- [sheet-writer](plugins/spanish-curriculum/skills/carmen/agents/sheet-writer.md) — `spanish-curriculum/carmen`
+- [warmup-planner](plugins/spanish-curriculum/skills/carmen/agents/warmup-planner.md) — `spanish-curriculum/carmen`
+
+<!-- catalog:end -->
+
+The block above is generated by `pnpm run catalog` from disk. Do not hand-edit between the markers.
 
 ## Supported Tools
 
-Skills follow the [Agent Skills](https://agentskills.io) standard. Agent files
-are portable Markdown source; tool-specific loading may require an adapter.
+Skills follow the [Agent Skills](https://agentskills.io) standard. Agent files are portable Markdown source; tool-specific loading may require an adapter.
 
-| Tool                                | Skills | Shared Agent Source | Full Plugins |
-| ----------------------------------- | ------ | ------------------- | ------------ |
-| Claude Code                         | Yes    | Yes                 | Yes          |
-| Codex CLI                           | Yes    | Markdown source     | No           |
-| OpenCode                            | Yes    | Markdown source     | No           |
-| VS Code / GitHub Copilot            | Yes    | Markdown source     | No           |
-| Cursor                              | Yes    | Markdown source     | No           |
-| Gemini CLI                          | Yes    | Markdown source     | No           |
-| Other Agent Skills-compatible tools | Yes    | Markdown source     | No           |
+- Claude Code — skills, shared agents, full plugins
+- Codex CLI — skills, shared agents (Markdown source)
+- OpenCode — skills, shared agents (Markdown source)
+- VS Code / GitHub Copilot — skills, shared agents (Markdown source)
+- Cursor — skills, shared agents (Markdown source)
+- Gemini CLI — skills, shared agents (Markdown source)
+- Other Agent Skills-compatible tools — skills, shared agents (Markdown source)
 
 ## Develop
 
@@ -90,13 +87,10 @@ pnpm run validate
 pnpm turbo check
 ```
 
-Every plugin directory must include a README. Skills and agents self-document in
-their canonical Markdown files.
+Every plugin directory must include a `README.md`. Skills and agents self-document in their canonical Markdown files.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for authoring rules and [AGENTS.md](AGENTS.md)
-for agent-facing repository instructions.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for authoring rules and [AGENTS.md](AGENTS.md) for the canonical agent-facing spec.
 
 ## License
 
-Copyright (c) freeCodeCamp. This project is licensed under the
-[BSD 3-Clause License](https://opensource.org/licenses/BSD-3-Clause).
+Copyright (c) freeCodeCamp. This project is licensed under the [BSD 3-Clause License](https://opensource.org/licenses/BSD-3-Clause).

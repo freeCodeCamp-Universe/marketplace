@@ -46,7 +46,7 @@ afterEach(() => {
 });
 
 describe("scaffold CLI — plugin creation", () => {
-  it("creates correct directory structure for a plugin", () => {
+  it("creates portable directory structure for a plugin (no claude adapter by default)", () => {
     const name = "test-plugin-struct";
     const dir = resolve(PLUGINS_DIR, name);
     trackCleanup(dir);
@@ -54,12 +54,13 @@ describe("scaffold CLI — plugin creation", () => {
     scaffold(`--name ${name} --description "A test plugin" --type plugin`);
 
     expect(existsSync(dir)).toBe(true);
-    expect(existsSync(resolve(dir, ".claude-plugin", "plugin.json"))).toBe(true);
+    expect(existsSync(resolve(dir, "plugin.json"))).toBe(true);
     expect(existsSync(resolve(dir, "skills", name, "SKILL.md"))).toBe(true);
     expect(existsSync(resolve(dir, "README.md"))).toBe(true);
+    expect(existsSync(resolve(dir, "adapters"))).toBe(false);
   });
 
-  it("writes correct plugin.json with name, description, and version", () => {
+  it("writes portable plugin.json with name, description, version, skills[], adapters[]", () => {
     const name = "test-plugin-json";
     const desc = "Plugin JSON test description";
     const dir = resolve(PLUGINS_DIR, name);
@@ -67,12 +68,28 @@ describe("scaffold CLI — plugin creation", () => {
 
     scaffold(`--name ${name} --description "${desc}" --type plugin`);
 
-    const pluginJson = JSON.parse(
-      readFileSync(resolve(dir, ".claude-plugin", "plugin.json"), "utf-8"),
-    );
+    const pluginJson = JSON.parse(readFileSync(resolve(dir, "plugin.json"), "utf-8"));
     expect(pluginJson.name).toBe(name);
     expect(pluginJson.description).toBe(desc);
     expect(pluginJson.version).toBe("1.0.0");
+    expect(pluginJson.skills).toEqual([name]);
+    expect(pluginJson.adapters).toEqual([]);
+  });
+
+  it("emits the claude adapter when --adapters claude is passed", () => {
+    const name = "test-plugin-claude";
+    const dir = resolve(PLUGINS_DIR, name);
+    trackCleanup(dir);
+
+    scaffold(`--name ${name} --description "Claude adapter" --type plugin --adapters claude`);
+
+    const pluginJson = JSON.parse(readFileSync(resolve(dir, "plugin.json"), "utf-8"));
+    expect(pluginJson.adapters).toEqual(["claude"]);
+    const adapterManifest = resolve(dir, "adapters", "claude", ".claude-plugin", "plugin.json");
+    expect(existsSync(adapterManifest)).toBe(true);
+    const data = JSON.parse(readFileSync(adapterManifest, "utf-8"));
+    expect(data.name).toBe(name);
+    expect(data.version).toBe("1.0.0");
   });
 
   it("writes correct SKILL.md frontmatter with name and description", () => {

@@ -4,23 +4,27 @@ Short description of what this plugin does and the problem it solves.
 
 ## Skills
 
-| Skill           | Command        | Description                    |
-| --------------- | -------------- | ------------------------------ |
-| **Plugin Name** | `/plugin-name` | Brief description of the skill |
+- `plugin-name` — Brief description of the seed skill.
 
 ## Installation
 
 ### Portable skills (any compatible tool)
 
 ```sh
-npx skills add freeCodeCamp/fCC-AI-Marketplace/plugins/plugin-name
+npx skills add freeCodeCamp/fCC-AI-Marketplace --skill plugin-name
 ```
 
 ### Full plugin (Claude Code only)
 
 ```sh
-claude --plugin-dir ./plugins/plugin-name
+claude --plugin-dir ./plugins/plugin-name/adapters/claude
 ```
+
+## Adapters
+
+This plugin ships with the following per-tool adapters under `adapters/<id>/`:
+
+- _none yet — declare adapters in `plugin.json` and run `pnpm run scaffold` to add one_
 
 ## Setup and Prerequisites
 
@@ -32,13 +36,6 @@ claude --plugin-dir ./plugins/plugin-name
 
 ## Usage
 
-### Basic usage
-
 ```text
 /plugin-name — describe what happens when invoked
 ```
-
-### Examples
-
-- `describe a typical use case`
-- `describe another use case`
