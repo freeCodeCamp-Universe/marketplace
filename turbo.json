@@ -6,16 +6,32 @@
         "AGENTS.md",
         "README.md",
         "agents/**/*.md",
-        "plugins/**/.claude-plugin/plugin.json",
+        "plugins/*/plugin.json",
         "plugins/*/README.md",
         "plugins/**/agents/**/*.md",
         "plugins/**/skills/**/agents/**/*.md",
         "plugins/**/skills/**/SKILL.md",
+        "plugins/**/adapters/**/*",
+        "claude-native/**/*",
         "skills/**/SKILL.md",
         "scripts/**/*.ts",
-        "templates/**/*.md",
-        "templates/**/*.json"
+        "templates/**/*"
       ],
+      "cache": false
+    },
+    "catalog:check:raw": {
+      "inputs": [
+        "README.md",
+        "agents/**/*.md",
+        "plugins/*/plugin.json",
+        "plugins/**/skills/**/SKILL.md",
+        "plugins/**/skills/**/agents/**/*.md",
+        "plugins/**/agents/**/*.md",
+        "claude-native/**/.claude-plugin/plugin.json",
+        "skills/**/SKILL.md",
+        "scripts/**/*.ts"
+      ],
+      "outputs": [],
       "cache": false
     },
     "test:raw": {
@@ -34,7 +50,7 @@
       "cache": false
     },
     "check": {
-      "dependsOn": ["validate:raw", "test:raw", "lint:raw", "format:check:raw"]
+      "dependsOn": ["validate:raw", "catalog:check:raw", "test:raw", "lint:raw", "format:check:raw"]
     }
   }
 }

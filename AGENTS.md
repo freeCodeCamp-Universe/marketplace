@@ -1,92 +1,63 @@
 # Marketplace Agent Instructions
 
+Canonical spec for agents working in this repository. The user-facing `README.md` carries the install story and catalog; this file carries the rules an automated agent must follow.
+
 ## Purpose
 
-This repository publishes portable AI skills and agents for freeCodeCamp, plus
-Claude Code-specific plugin bundles.
+Publish portable AI skills and agents for freeCodeCamp, plus per-tool plugin bundles (Claude Code today; Codex CLI, OpenCode, Gemini CLI, etc. as adapters land).
 
 ## Architecture Boundaries
 
-- Treat `skills/` and every `SKILL.md` under `plugins/*/skills/` as canonical
-  Agent Skills packages.
-- Treat `agents/*.md` and plugin-local `agents/*.md` files as canonical agent
-  prompts: YAML frontmatter with `name` and `description`, followed by Markdown
-  instructions.
-- Keep Claude Code-only behavior in `plugins/*/.claude-plugin/`, `hooks/`,
-  `.mcp.json`, or plugin adapter docs.
-- Keep portable skills and canonical agents tool-agnostic; if a Claude-only
-  assumption is necessary, document the portability impact in plugin docs.
+- **`skills/<name>/SKILL.md`** and **`plugins/<name>/skills/<name>/SKILL.md`** — canonical Agent Skills packages. Tool-agnostic. Conform to [agentskills.io](https://agentskills.io).
+- **`agents/*.md`** and plugin-local **`agents/*.md`** — canonical agent prompts: YAML frontmatter (`name`, `description`) + Markdown system prompt body. Tool-agnostic.
+- **`plugins/<name>/plugin.yaml`** — portable plugin manifest. Lists bundled skills, agents, supported adapters.
+- **`plugins/<name>/adapters/<tool>/`** — per-tool adapter (manifest, hooks, MCP config). Claude lives in `adapters/claude/`. Other tools land alongside.
+- **`claude-native/<name>/`** — plugins that exist only as Claude bundles (hook-driven, no portable skills). Use this directory only when no portable counterpart is possible.
+- Skill and agent files never depend on a specific tool runtime. If Claude-only behavior is required, document the impact in plugin docs and confine the wiring to `adapters/claude/` or `claude-native/`.
 
-## Marketplace Index
+## Hard Contracts
 
-### Plugins
+- **`npx skills add freeCodeCamp/fCC-AI-Marketplace`** must keep working, including `--skill <name>`. Never move a `SKILL.md` out of `skills/<name>/` or `plugins/<name>/skills/<name>/` — those paths are part of the public discovery contract.
+- **agentskills.io spec** is the authority on `SKILL.md` shape. Validators mirror that spec; do not invent extra required fields.
+- **Frontmatter (`name`, `description`)** is the minimum cross-tool discovery contract. `name` matches the directory (skills) or filename (agents).
 
-| Name               | Path                          | Status |
-| ------------------ | ----------------------------- | ------ |
-| spanish-curriculum | `plugins/spanish-curriculum/` | Active |
+## Adapter Model
 
-### Standalone Skills
+Each adapter is registered in `scripts/lib/adapters.ts` with:
 
-| Name                 | Path                           | Status    |
-| -------------------- | ------------------------------ | --------- |
-| command-line-chic    | `skills/command-line-chic/`    | Active    |
-| hello-world          | `skills/hello-world/`          | Reference |
-| sync-issue-templates | `skills/sync-issue-templates/` | Active    |
+- `id` — `claude`, `codex`, `opencode`, `gemini`, …
+- `manifestPath` — relative to plugin dir (e.g. `.claude-plugin/plugin.json`)
+- `manifestKind` — `json | yaml | toml`
+- `requiredFields` — fields the manifest must carry
+- Optional `hooksDir`, `mcpConfig`
 
-### Plugin Skills
+Adding a new tool means adding one entry to `ADAPTERS`, a folder under `templates/adapter/<id>/`, and (optionally) per-tool fixtures in tests. No core code changes.
 
-| Name       | Plugin             | Path                                            | Status |
-| ---------- | ------------------ | ----------------------------------------------- | ------ |
-| carmen     | spanish-curriculum | `plugins/spanish-curriculum/skills/carmen/`     | Active |
-| curriculum | spanish-curriculum | `plugins/spanish-curriculum/skills/curriculum/` | Active |
-| marcos     | spanish-curriculum | `plugins/spanish-curriculum/skills/marcos/`     | Active |
+## Index Maintenance
 
-### Shared Agents
+- The catalog in `README.md` is generated from disk by `pnpm run catalog`. Never hand-edit the block between `<!-- catalog:start -->` and `<!-- catalog:end -->`.
+- After adding, renaming, moving, deprecating, or removing a plugin, skill, or agent, run `pnpm run catalog`. CI runs `pnpm run catalog --check` and fails on drift.
+- Status labels: `Active`, `Reference`, `Deprecated`, `Experimental`.
+- Per-plugin `plugins/<name>/README.md` stays the human-authored reference for that plugin and must match its `plugin.yaml`.
 
-| Name        | Path                    | Status    |
-| ----------- | ----------------------- | --------- |
-| hello-world | `agents/hello-world.md` | Reference |
+## Self-Development
 
-### Plugin-Local Agents
-
-| Name              | Owner  | Path                                                                   |
-| ----------------- | ------ | ---------------------------------------------------------------------- |
-| coherence-checker | carmen | `plugins/spanish-curriculum/skills/carmen/agents/coherence-checker.md` |
-| learn-planner     | carmen | `plugins/spanish-curriculum/skills/carmen/agents/learn-planner.md`     |
-| pcic-researcher   | carmen | `plugins/spanish-curriculum/skills/carmen/agents/pcic-researcher.md`   |
-| practice-planner  | carmen | `plugins/spanish-curriculum/skills/carmen/agents/practice-planner.md`  |
-| sheet-writer      | carmen | `plugins/spanish-curriculum/skills/carmen/agents/sheet-writer.md`      |
-| warmup-planner    | carmen | `plugins/spanish-curriculum/skills/carmen/agents/warmup-planner.md`    |
-
-## Index Maintenance Rules
-
-- Update the Marketplace Index in this file whenever adding, renaming, moving,
-  deprecating, or removing a plugin, skill, or agent.
-- Keep the root `README.md` catalog aligned with this index. The root README is
-  user-facing; this file is agent-facing.
-- Keep each plugin README aligned with its manifest and bundled skills:
-  `plugins/<name>/README.md`.
-- Use `SKILL.md` and agent Markdown files as canonical item docs; reserve README
-  files for the root catalog and plugin-level documentation.
-- Status labels should be one of: `Active`, `Reference`, `Deprecated`, or
-  `Experimental`.
-- Run `pnpm run validate` after index or README changes.
-
-## Self-Development Rules
-
-- Reuse shared helpers in `scripts/lib/` for metadata parsing, naming rules,
-  validation, and scaffolding; add shared helper coverage when frontmatter logic
-  changes.
-- When changing a format rule, update validator tests, scaffolding tests,
-  templates, and contributor docs in the same change.
-- Keep templates minimal and portable. Add tool-specific examples only in plugin
-  templates or plugin docs.
-- Prefer small, focused reference files over very large `SKILL.md` bodies.
-- Keep root catalogs and docs aligned with actual frontmatter and manifests.
+- Reuse helpers in `scripts/lib/` (metadata, adapters, schema, catalog). Extend them when frontmatter or adapter rules change; do not duplicate logic in scripts.
+- When changing a format rule, update the schema, the validator, the scaffolder, the templates, and the contributor docs in the same change.
+- Keep templates minimal and portable. Tool-specific examples belong only in `templates/adapter/<id>/` or in plugin docs.
+- Prefer small focused reference files over very large `SKILL.md` bodies.
 
 ## Validation
 
-- Run `pnpm run validate` for metadata, structure, and portability changes.
-- Run focused tests for changed scripts, then `pnpm turbo check` before PRs when
-  dependencies are installed.
-- If validation cannot run because dependencies are missing, state that clearly.
+- `pnpm run validate` — structural correctness (manifests, adapters, frontmatter, names).
+- `pnpm run catalog --check` — README catalog matches disk.
+- `pnpm test` — unit tests for validator, scaffolder, catalog, schema.
+- `pnpm turbo check` — full gate (validate + test + lint + format).
+- If dependencies are missing, state that clearly rather than skipping.
+
+## Design Decisions
+
+- Skills and agents are the units of portability; plugins are the unit of distribution per tool.
+- One plugin per workflow domain. Avoid monolith plugins.
+- Plugin-level hooks and MCP configs are not portable — they belong to a single adapter.
+- Catalog is generated, not hand-maintained.

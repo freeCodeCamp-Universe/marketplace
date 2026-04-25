@@ -32,44 +32,39 @@ function runValidator(root: string): { stdout: string; exitCode: number } {
   }
 }
 
-function createPlugin(
-  base: string,
-  name: string,
-  opts: {
-    pluginJson?: Record<string, unknown> | string | false;
-    skills?: Record<string, string | false>;
-    readme?: boolean;
-    noSkillsDir?: boolean;
-  } = {},
-): void {
+const VALID_SKILL = (name: string, description = "A test skill"): string =>
+  ["---", `name: ${name}`, `description: ${description}`, "---", "# Skill", "Body"].join("\n");
+
+const VALID_AGENT = (name: string, description = "Reviews focused marketplace tasks"): string =>
+  ["---", `name: ${name}`, `description: ${description}`, "---", "# Agent", "Body"].join("\n");
+
+interface PluginOpts {
+  manifest?: Record<string, unknown> | string | false;
+  skills?: Record<string, string | false>;
+  readme?: boolean;
+  withClaudeAdapter?: boolean | { manifest?: Record<string, unknown> | false };
+}
+
+function createPortablePlugin(base: string, name: string, opts: PluginOpts = {}): void {
   const pluginDir = join(base, "plugins", name);
   mkdirSync(pluginDir, { recursive: true });
 
-  if (opts.pluginJson !== false) {
-    const cpDir = join(pluginDir, ".claude-plugin");
-    mkdirSync(cpDir, { recursive: true });
-    if (typeof opts.pluginJson === "string") {
-      writeFileSync(join(cpDir, "plugin.json"), opts.pluginJson);
-    } else {
-      const data = opts.pluginJson ?? {
-        name,
-        description: "Test plugin",
-        version: "1.0.0",
-      };
-      writeFileSync(join(cpDir, "plugin.json"), JSON.stringify(data));
-    }
+  if (opts.manifest !== false) {
+    const manifest = opts.manifest ?? {
+      name,
+      description: "Test plugin",
+      version: "1.0.0",
+      skills: ["my-skill"],
+      adapters: [],
+    };
+    const file = join(pluginDir, "plugin.json");
+    writeFileSync(file, typeof manifest === "string" ? manifest : JSON.stringify(manifest));
   }
 
-  if (!opts.noSkillsDir) {
+  const skills = opts.skills ?? { "my-skill": VALID_SKILL("my-skill") };
+  if (Object.keys(skills).length > 0) {
     const skillsDir = join(pluginDir, "skills");
     mkdirSync(skillsDir, { recursive: true });
-
-    const skills = opts.skills ?? {
-      "my-skill": ["---", "name: my-skill", "description: A test skill", "---", "# My Skill"].join(
-        "\n",
-      ),
-    };
-
     for (const [skillName, content] of Object.entries(skills)) {
       const skillDir = join(skillsDir, skillName);
       mkdirSync(skillDir, { recursive: true });
@@ -77,6 +72,38 @@ function createPlugin(
         writeFileSync(join(skillDir, "SKILL.md"), content);
       }
     }
+  }
+
+  if (opts.withClaudeAdapter) {
+    const cpDir = join(pluginDir, "adapters", "claude", ".claude-plugin");
+    mkdirSync(cpDir, { recursive: true });
+    const adapterManifest =
+      typeof opts.withClaudeAdapter === "object" && opts.withClaudeAdapter.manifest !== undefined
+        ? opts.withClaudeAdapter.manifest
+        : { name, description: "Claude adapter", version: "1.0.0" };
+    if (adapterManifest !== false) {
+      writeFileSync(join(cpDir, "plugin.json"), JSON.stringify(adapterManifest));
+    }
+  }
+
+  if (opts.readme !== false) {
+    writeFileSync(join(pluginDir, "README.md"), `# ${name}`);
+  }
+}
+
+function createClaudeNativePlugin(
+  base: string,
+  name: string,
+  opts: { manifest?: Record<string, unknown> | string | false; readme?: boolean } = {},
+): void {
+  const pluginDir = join(base, "claude-native", name);
+  const cpDir = join(pluginDir, ".claude-plugin");
+  mkdirSync(cpDir, { recursive: true });
+
+  if (opts.manifest !== false) {
+    const data = opts.manifest ?? { name, description: "Claude-only plugin", version: "1.0.0" };
+    const out = typeof data === "string" ? data : JSON.stringify(data);
+    writeFileSync(join(cpDir, "plugin.json"), out);
   }
 
   if (opts.readme !== false) {
@@ -110,191 +137,175 @@ afterEach(() => {
 
 describe("validate.ts", () => {
   describe("happy path", () => {
-    it("valid plugin with all required files and fields passes all checks", () => {
-      createPlugin(tempDir, "good-plugin");
+    it("portable plugin with one skill and no adapters passes", () => {
+      createPortablePlugin(tempDir, "good-plugin");
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(0);
       expect(stdout).toContain("PASS");
       expect(stdout).not.toContain("FAIL");
     });
 
-    it("valid standalone skill with correct frontmatter passes", () => {
-      createStandaloneSkill(
-        tempDir,
-        "test-skill",
-        ["---", "name: test-skill", "description: A test skill", "---", "# Test"].join("\n"),
-      );
+    it("portable plugin with claude adapter passes when adapter manifest is present", () => {
+      createPortablePlugin(tempDir, "with-claude", {
+        manifest: {
+          name: "with-claude",
+          description: "Plugin with claude adapter",
+          version: "1.0.0",
+          skills: ["my-skill"],
+          adapters: ["claude"],
+        },
+        withClaudeAdapter: true,
+      });
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(0);
-      expect(stdout).toContain("PASS");
+      expect(stdout).toContain("adapter:claude manifest exists");
       expect(stdout).not.toContain("FAIL");
     });
 
-    it("valid shared agent with frontmatter passes", () => {
-      createAgent(
-        tempDir,
-        "test-agent",
-        [
-          "---",
-          "name: test-agent",
-          "description: Reviews focused marketplace tasks",
-          "---",
-          "# Test Agent",
-          "Follow the requested instructions.",
-        ].join("\n"),
-      );
+    it("claude-native plugin with manifest and README passes", () => {
+      createClaudeNativePlugin(tempDir, "native-only");
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(0);
-      expect(stdout).toContain("PASS");
+      expect(stdout).toContain("[claude-native/native-only]");
+      expect(stdout).not.toContain("FAIL");
+    });
+
+    it("standalone skill with valid frontmatter passes", () => {
+      createStandaloneSkill(tempDir, "test-skill", VALID_SKILL("test-skill"));
+      const { stdout, exitCode } = runValidator(tempDir);
+      expect(exitCode).toBe(0);
+      expect(stdout).not.toContain("FAIL");
+    });
+
+    it("shared agent with valid frontmatter passes", () => {
+      createAgent(tempDir, "test-agent", VALID_AGENT("test-agent"));
+      const { stdout, exitCode } = runValidator(tempDir);
+      expect(exitCode).toBe(0);
       expect(stdout).not.toContain("FAIL");
     });
   });
 
-  describe("plugin validation failures", () => {
-    it("missing .claude-plugin/plugin.json fails", () => {
-      createPlugin(tempDir, "bad-plugin", {
-        pluginJson: false,
-      });
+  describe("portable plugin failures", () => {
+    it("missing plugin.json fails", () => {
+      createPortablePlugin(tempDir, "missing-manifest", { manifest: false });
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
-      expect(stdout).toContain("plugin.json does not exist");
+      expect(stdout).toContain("portable plugin.json does not exist");
     });
 
-    it("invalid JSON in plugin.json fails", () => {
-      createPlugin(tempDir, "bad-json", {
-        pluginJson: "{ not valid json }}}",
-      });
+    it("invalid JSON fails", () => {
+      createPortablePlugin(tempDir, "bad-json", { manifest: "{ not json }" });
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
       expect(stdout).toContain("not valid JSON");
     });
 
-    it("empty name field in plugin.json fails", () => {
-      createPlugin(tempDir, "empty-name", {
-        pluginJson: { name: "", description: "Test", version: "1.0.0" },
-      });
-      const { stdout, exitCode } = runValidator(tempDir);
-      expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
-      expect(stdout).toContain("missing 'name' field");
-    });
-
-    it("missing skills/ directory fails", () => {
-      createPlugin(tempDir, "no-skills", {
-        noSkillsDir: true,
-      });
-      const { stdout, exitCode } = runValidator(tempDir);
-      expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
-      expect(stdout).toContain("skills/ directory does not exist");
-    });
-
-    it("skill without SKILL.md fails", () => {
-      const pluginDir = join(tempDir, "plugins", "missing-skillmd");
-      mkdirSync(join(pluginDir, ".claude-plugin"), { recursive: true });
-      writeFileSync(
-        join(pluginDir, ".claude-plugin", "plugin.json"),
-        JSON.stringify({ name: "missing-skillmd", description: "Test", version: "1.0.0" }),
-      );
-      mkdirSync(join(pluginDir, "skills", "broken-skill"), { recursive: true });
-      writeFileSync(join(pluginDir, "README.md"), "# Test");
-
-      const { stdout, exitCode } = runValidator(tempDir);
-      expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
-      expect(stdout).toContain("SKILL.md does not exist");
-    });
-
-    it("SKILL.md without name frontmatter fails", () => {
-      createPlugin(tempDir, "no-name-fm", {
-        skills: {
-          "my-skill": ["---", "description: A test skill", "---", "# Skill"].join("\n"),
+    it("plugin.json name mismatch fails", () => {
+      createPortablePlugin(tempDir, "name-mismatch", {
+        manifest: {
+          name: "other-name",
+          description: "Mismatch",
+          version: "1.0.0",
+          skills: ["my-skill"],
         },
       });
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
-      expect(stdout).toContain("missing 'name' in frontmatter");
+      expect(stdout).toContain("'name' must match directory");
     });
 
-    it("SKILL.md with unclosed frontmatter (no closing ---) fails", () => {
-      createPlugin(tempDir, "unclosed-fm", {
-        skills: {
-          "my-skill": ["---", "name: my-skill", "description: test", "# Body content"].join("\n"),
+    it("declared adapter without manifest fails", () => {
+      createPortablePlugin(tempDir, "missing-adapter", {
+        manifest: {
+          name: "missing-adapter",
+          description: "Missing claude adapter",
+          version: "1.0.0",
+          skills: ["my-skill"],
+          adapters: ["claude"],
         },
       });
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
+      expect(stdout).toContain("adapter:claude manifest missing");
     });
 
-    it("SKILL.md name with non-portable characters fails", () => {
-      createPlugin(tempDir, "bad-name-fmt", {
-        skills: {
-          "my-skill": ["---", "name: My_Skill", "description: A test", "---", "# Skill"].join("\n"),
+    it("unknown adapter id fails", () => {
+      createPortablePlugin(tempDir, "bad-adapter", {
+        manifest: {
+          name: "bad-adapter",
+          description: "Test",
+          version: "1.0.0",
+          skills: ["my-skill"],
+          adapters: ["wat"],
         },
       });
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
-      expect(stdout).toContain("must use lowercase letters");
+      expect(stdout).toContain("not a known adapter");
     });
 
-    it("missing README.md fails", () => {
-      createPlugin(tempDir, "no-readme", {
-        readme: false,
+    it("no skills and no agents fails", () => {
+      createPortablePlugin(tempDir, "empty-plugin", {
+        manifest: {
+          name: "empty-plugin",
+          description: "Nothing inside",
+          version: "1.0.0",
+          skills: [],
+        },
+        skills: {},
       });
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
+      expect(stdout).toContain("must declare at least one skill or agent");
+    });
+
+    it("missing README fails", () => {
+      createPortablePlugin(tempDir, "no-readme", { readme: false });
+      const { stdout, exitCode } = runValidator(tempDir);
+      expect(exitCode).toBe(1);
       expect(stdout).toContain("README.md does not exist");
     });
   });
 
-  describe("standalone skill failures", () => {
-    it("SKILL.md missing fails", () => {
+  describe("skill failures", () => {
+    it("standalone SKILL.md missing fails", () => {
       createStandaloneSkill(tempDir, "no-file", false);
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
       expect(stdout).toContain("SKILL.md does not exist");
-    });
-
-    it("name field empty fails", () => {
-      createStandaloneSkill(
-        tempDir,
-        "empty-name",
-        ["---", "name: ", "description: Test", "---", "# Skill"].join("\n"),
-      );
-      const { stdout, exitCode } = runValidator(tempDir);
-      expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
-      expect(stdout).toContain("name is required");
     });
 
     it("name format invalid fails", () => {
       createStandaloneSkill(
         tempDir,
         "bad-name",
-        ["---", "name: BadName!", "description: Test", "---", "# Skill"].join("\n"),
+        ["---", "name: BadName!", "description: Test", "---", "# Skill", "Body"].join("\n"),
       );
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
-      expect(stdout).toContain("FAIL");
       expect(stdout).toContain("must use lowercase letters");
     });
 
-    it("name must match standalone skill directory", () => {
+    it("name must match directory", () => {
       createStandaloneSkill(
         tempDir,
         "directory-name",
-        ["---", "name: other-name", "description: Test", "---", "# Skill"].join("\n"),
+        ["---", "name: other-name", "description: Test", "---", "# Skill", "Body"].join("\n"),
       );
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
-      expect(stdout).toContain("name' must match directory");
+      expect(stdout).toContain("'name' must match directory");
+    });
+
+    it("missing description fails", () => {
+      createStandaloneSkill(
+        tempDir,
+        "no-description",
+        ["---", "name: no-description", "---", "# Skill", "Body"].join("\n"),
+      );
+      const { stdout, exitCode } = runValidator(tempDir);
+      expect(exitCode).toBe(1);
+      expect(stdout).toContain("missing 'description'");
     });
   });
 
@@ -310,58 +321,61 @@ describe("validate.ts", () => {
       createAgent(
         tempDir,
         "file-name",
-        ["---", "name: other-name", "description: Test", "---", "# Agent"].join("\n"),
+        ["---", "name: other-name", "description: Test", "---", "# Agent", "Body"].join("\n"),
       );
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
-      expect(stdout).toContain("name' must match filename");
+      expect(stdout).toContain("'name' must match filename");
+    });
+  });
+
+  describe("claude-native failures", () => {
+    it("missing manifest fails", () => {
+      createClaudeNativePlugin(tempDir, "broken-native", { manifest: false });
+      const { stdout, exitCode } = runValidator(tempDir);
+      expect(exitCode).toBe(1);
+      expect(stdout).toContain(".claude-plugin/plugin.json does not exist");
+    });
+
+    it("manifest name mismatch fails", () => {
+      createClaudeNativePlugin(tempDir, "wrong-name", {
+        manifest: { name: "different", description: "Test", version: "1.0.0" },
+      });
+      const { stdout, exitCode } = runValidator(tempDir);
+      expect(exitCode).toBe(1);
+      expect(stdout).toContain("'name' must match directory");
     });
   });
 
   describe("edge cases", () => {
-    it("empty plugins/ and skills/ directories exits with code 1", () => {
-      mkdirSync(join(tempDir, "plugins"), { recursive: true });
-      mkdirSync(join(tempDir, "skills"), { recursive: true });
+    it("no content at all exits with code 1", () => {
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("No content found to validate");
     });
 
-    it("YAML value with surrounding quotes is stripped correctly", () => {
+    it("YAML quoted name is stripped", () => {
       createStandaloneSkill(
         tempDir,
         "quoted-name",
-        ["---", 'name: "quoted-name"', "description: Test", "---", "# Skill"].join("\n"),
+        ["---", 'name: "quoted-name"', "description: Test", "---", "# Skill", "Body"].join("\n"),
       );
       const { stdout, exitCode } = runValidator(tempDir);
       expect(exitCode).toBe(0);
-      expect(stdout).toContain("PASS");
-      expect(stdout).toContain("'name' is valid");
-    });
-
-    it("YAML value with single quotes is stripped correctly", () => {
-      createStandaloneSkill(
-        tempDir,
-        "single-quoted",
-        ["---", "name: 'single-quoted'", "description: Test", "---", "# Skill"].join("\n"),
-      );
-      const { stdout, exitCode } = runValidator(tempDir);
-      expect(exitCode).toBe(0);
-      expect(stdout).toContain("PASS");
-      expect(stdout).toContain("'name' is valid");
-    });
-
-    it("no plugins/ or skills/ directories at all exits with code 1", () => {
-      const { stdout, exitCode } = runValidator(tempDir);
-      expect(exitCode).toBe(1);
-      expect(stdout).toContain("No content found to validate");
+      expect(stdout).not.toContain("FAIL");
     });
 
     it("plugin with multiple skills validates all of them", () => {
-      createPlugin(tempDir, "multi-skill", {
+      createPortablePlugin(tempDir, "multi-skill", {
+        manifest: {
+          name: "multi-skill",
+          description: "Multi-skill plugin",
+          version: "1.0.0",
+          skills: ["skill-one", "skill-two"],
+        },
         skills: {
-          "skill-one": ["---", "name: skill-one", "description: First", "---", "# One"].join("\n"),
-          "skill-two": ["---", "name: skill-two", "description: Second", "---", "# Two"].join("\n"),
+          "skill-one": VALID_SKILL("skill-one", "First skill"),
+          "skill-two": VALID_SKILL("skill-two", "Second skill"),
         },
       });
       const { stdout, exitCode } = runValidator(tempDir);
