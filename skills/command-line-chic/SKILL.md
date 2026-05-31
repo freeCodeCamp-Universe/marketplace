@@ -101,7 +101,8 @@ Use the gray pairs to establish visual hierarchy. In dark mode:
 | Secondary background | gray-85 | `#1b1b32` |
 | Surface / editor     | gray-80 | `#2a2a40` |
 | Borders / subtle     | gray-75 | `#3b3b4f` |
-| Muted text           | gray-45 | `#858591` |
+| Muted text           | gray-40 | `#939393` |
+| Comments, disabled   | gray-45 | `#858591` |
 | Subtle foreground    | gray-15 | `#d0d0d5` |
 | Secondary foreground | gray-10 | `#dfdfe2` |
 | Bright foreground    | gray-05 | `#f5f6f7` |

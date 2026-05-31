@@ -24,22 +24,26 @@ style guide, the VS Code dark theme, and the Sandpack/CodeSandbox theme.
 using a deep navy (`#0a0a23`) as the darkest value. Each gray pair (00/90,
 05/85, 10/80, 15/75) is designed to swap roles between dark and light themes.
 
-| Token                   | Hex / Value                 | Role in Dark Mode        | Role in Light Mode       |
-| ----------------------- | --------------------------- | ------------------------ | ------------------------ |
-| `--gray-00`             | `#ffffff`                   | Primary foreground       | Primary background       |
-| `--gray-00-translucent` | `rgba(255, 255, 255, 0.85)` | Translucent foreground   | Translucent background   |
-| `--gray-05`             | `#f5f6f7`                   | Secondary foreground     | Secondary background     |
-| `--gray-10`             | `#dfdfe2`                   | Tertiary foreground      | Tertiary background      |
-| `--gray-15`             | `#d0d0d5`                   | Quaternary foreground    | Quaternary background    |
-| `--gray-45`             | `#858591`                   | Muted text (both themes) | Muted text (both themes) |
-| `--gray-75`             | `#3b3b4f`                   | Quaternary background    | Quaternary foreground    |
-| `--gray-80`             | `#2a2a40`                   | Tertiary background      | Tertiary foreground      |
-| `--gray-85`             | `#1b1b32`                   | Secondary background     | Secondary foreground     |
-| `--gray-90`             | `#0a0a23`                   | Primary background       | Primary foreground       |
-| `--gray-90-translucent` | `rgba(10, 10, 35, 0.85)`    | Translucent background   | Translucent foreground   |
+| Token                   | Hex / Value                 | Role in Dark Mode       | Role in Light Mode       |
+| ----------------------- | --------------------------- | ----------------------- | ------------------------ |
+| `--gray-00`             | `#ffffff`                   | Primary foreground      | Primary background       |
+| `--gray-00-translucent` | `rgba(255, 255, 255, 0.85)` | Translucent foreground  | Translucent background   |
+| `--gray-05`             | `#f5f6f7`                   | Secondary foreground    | Secondary background     |
+| `--gray-10`             | `#dfdfe2`                   | Tertiary foreground     | Tertiary background      |
+| `--gray-15`             | `#d0d0d5`                   | Quaternary foreground   | Quaternary background    |
+| `--gray-40`             | `#939393`                   | Muted text (dark theme) | n/a                      |
+| `--gray-45`             | `#858591`                   | Comments, disabled      | Comments, disabled       |
+| `--gray-50`             | `#626262`                   | n/a                     | Muted text (light theme) |
+| `--gray-75`             | `#3b3b4f`                   | Quaternary background   | Quaternary foreground    |
+| `--gray-80`             | `#2a2a40`                   | Tertiary background     | Tertiary foreground      |
+| `--gray-85`             | `#1b1b32`                   | Secondary background    | Secondary foreground     |
+| `--gray-90`             | `#0a0a23`                   | Primary background      | Primary foreground       |
+| `--gray-90-translucent` | `rgba(10, 10, 35, 0.85)`    | Translucent background  | Translucent foreground   |
 
-Gray-45 (`#858591`) is the midpoint — used for muted/disabled text, comments,
-and secondary labels in both themes.
+Gray-45 (`#858591`) is for disabled elements (exempt from the WCAG contrast
+minimum) and code comments in both themes. Do not use it for active, readable text. Muted
+text that must stay legible, such as a secondary label, uses gray-40 / gray-50
+instead.
 
 ---
 
@@ -243,7 +247,9 @@ on freeCodeCamp repositories.
 --gray-05: #f5f6f7
 --gray-10: #dfdfe2
 --gray-15: #d0d0d5
+--gray-40: #939393
 --gray-45: #858591
+--gray-50: #626262
 --gray-75: #3b3b4f
 --gray-80: #2a2a40
 --gray-85: #1b1b32
