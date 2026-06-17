@@ -27,11 +27,12 @@ Claude Code-specific plugin bundles.
 
 ### Standalone Skills
 
-| Name                 | Path                           | Status    |
-| -------------------- | ------------------------------ | --------- |
-| command-line-chic    | `skills/command-line-chic/`    | Active    |
-| hello-world          | `skills/hello-world/`          | Reference |
-| sync-issue-templates | `skills/sync-issue-templates/` | Active    |
+| Name                   | Path                             | Status    |
+| ---------------------- | -------------------------------- | --------- |
+| command-line-chic      | `skills/command-line-chic/`      | Active    |
+| hello-world            | `skills/hello-world/`            | Reference |
+| sync-issue-templates   | `skills/sync-issue-templates/`   | Active    |
+| sync-small-superblocks | `skills/sync-small-superblocks/` | Active    |
 
 ### Plugin Skills
 
