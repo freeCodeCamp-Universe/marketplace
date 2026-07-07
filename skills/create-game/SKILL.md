@@ -1,13 +1,13 @@
 ---
 name: create-game
-description: Scaffolds and builds a game from scratch. Only invoked explicitly as /create-game <game-name> — do not trigger from natural language.
+description: Scaffolds and builds a known game from scratch. Only invoked explicitly as /create-game <game-name> — do not trigger from natural language.
 ---
 
 # create-game
 
 ## Purpose
 
-Scaffold, plan, and fully build a new game from scratch.
+Scaffold, plan, and fully build a new known game from scratch.
 
 ## Invocation
 
