@@ -1,0 +1,29 @@
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-6);
+  width: 100%;
+}
+
+.stats-row-stat {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: var(--space-5);
+}
+
+.stats-row-label {
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.stats-row-value {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}

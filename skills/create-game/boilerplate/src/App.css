@@ -1,0 +1,116 @@
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+main:focus {
+  outline: none;
+}
+
+/* ── Card container ───────────────────────────────────────────────────────── */
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: var(--border-default);
+  box-shadow: var(--shadow-lg);
+  min-width: 450px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 460px) {
+  .card {
+    min-width: 0;
+    border-radius: var(--radius-md);
+    padding: 0 0 var(--space-4);
+  }
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+  border: none;
+  transition: background var(--transition-default), box-shadow var(--transition-default), transform var(--transition-fast);
+  width: 100%;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--gray-90);
+  border: var(--border-default);
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border: var(--border-default);
+}
+
+.btn-secondary:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+  border-color: var(--color-text-muted);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:active {
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--blue-mid);
+  outline-offset: 2px;
+}
+
+/* ── Confirm modal content ────────────────────────────────────────────────── */
+
+.confirm-message {
+  color: var(--color-text-secondary);
+  font-size: var(--text-md);
+  text-align: center;
+  line-height: var(--line-height-normal);
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.confirm-actions .btn {
+  width: auto;
+}

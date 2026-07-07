@@ -1,0 +1,69 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3);
+  border-bottom: var(--border-default);
+}
+
+.header-home {
+  justify-content: flex-end;
+  gap: var(--space-1);
+}
+
+.header-game {
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  min-width: 32px;
+}
+
+.header-center {
+  flex: 1;
+  text-align: center;
+  font-size: var(--text-md);
+  color: var(--color-text-secondary);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: var(--border-default);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.icon-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  display: block;
+  pointer-events: none;
+}
+
+.icon-btn:hover {
+  color: var(--color-text-primary);
+  background: var(--color-surface-raised);
+  border-color: var(--color-text-muted);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--blue-mid);
+  outline-offset: 2px;
+}
