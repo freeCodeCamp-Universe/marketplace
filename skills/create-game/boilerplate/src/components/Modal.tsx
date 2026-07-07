@@ -1,55 +1,55 @@
-import { useEffect, useRef, type ReactNode } from 'react'
-import './Modal.css'
+import { useEffect, useRef, type ReactNode } from "react";
+import "./Modal.css";
 
 interface Props {
-  title?: string
-  onClose: () => void
-  children: ReactNode
+  title?: string;
+  onClose: () => void;
+  children: ReactNode;
 }
 
 export default function Modal({ title, onClose, children }: Props) {
-  const dialogRef = useRef<HTMLDialogElement>(null)
-  const triggerRef = useRef<HTMLElement | null>(null)
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    triggerRef.current = document.activeElement as HTMLElement
-    const dialog = dialogRef.current
-    if (!dialog) return
+    triggerRef.current = document.activeElement as HTMLElement;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
 
-    dialog.showModal()
+    dialog.showModal();
 
     const focusable = dialog.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    )
-    focusable[0]?.focus()
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    );
+    focusable[0]?.focus();
 
     function onCancel(e: Event) {
-      e.preventDefault()
-      onClose()
+      e.preventDefault();
+      onClose();
     }
 
-    dialog.addEventListener('cancel', onCancel)
+    dialog.addEventListener("cancel", onCancel);
     return () => {
-      dialog.removeEventListener('cancel', onCancel)
-      triggerRef.current?.focus()
-    }
-  }, [onClose])
+      dialog.removeEventListener("cancel", onCancel);
+      triggerRef.current?.focus();
+    };
+  }, [onClose]);
 
   return (
     <dialog
       ref={dialogRef}
       className="modal-panel"
       aria-label={title}
-      onClick={e => { if (e.target === e.currentTarget) onClose() }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       {title && (
         <div className="modal-header">
           <h2 className="modal-title">{title}</h2>
         </div>
       )}
-      <div className="modal-body">
-        {children}
-      </div>
+      <div className="modal-body">{children}</div>
     </dialog>
-  )
+  );
 }

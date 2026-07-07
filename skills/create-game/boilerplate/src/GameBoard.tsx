@@ -5,9 +5,5 @@ interface Props {
 }
 
 export default function GameBoard({}: Props) {
-  return (
-    <div className="game-board">
-      {/* REPLACE: render the game board */}
-    </div>
-  )
+  return <div className="game-board">{/* REPLACE: render the game board */}</div>;
 }

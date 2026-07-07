@@ -15,7 +15,9 @@
   font-size: var(--text-md);
   font-weight: var(--weight-bold);
   cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
   white-space: nowrap;
 }
 

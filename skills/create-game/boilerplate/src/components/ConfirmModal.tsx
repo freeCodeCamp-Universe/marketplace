@@ -1,17 +1,17 @@
-import Modal from './Modal'
+import Modal from "./Modal";
 
 interface Props {
-  message: string
-  confirmLabel?: string
-  cancelLabel?: string
-  onConfirm: () => void
-  onCancel: () => void
+  message: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
 }
 
 export default function ConfirmModal({
   message,
-  confirmLabel = 'Confirm',
-  cancelLabel = 'Cancel',
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
   onConfirm,
   onCancel,
 }: Props) {
@@ -19,9 +19,13 @@ export default function ConfirmModal({
     <Modal title="Quit Game" onClose={onCancel}>
       <p className="confirm-message">{message}</p>
       <div className="confirm-actions">
-        <button className="btn btn-secondary" onClick={onCancel}>{cancelLabel}</button>
-        <button className="btn btn-primary" onClick={onConfirm}>{confirmLabel}</button>
+        <button className="btn btn-secondary" onClick={onCancel}>
+          {cancelLabel}
+        </button>
+        <button className="btn btn-primary" onClick={onConfirm}>
+          {confirmLabel}
+        </button>
       </div>
     </Modal>
-  )
+  );
 }

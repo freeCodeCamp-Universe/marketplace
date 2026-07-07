@@ -37,24 +37,27 @@ Use `<game-name>` for all file and folder naming.
 Before touching any files, introduce what you're about to build and ask focused questions. Keep it conversational — only ask what you genuinely need answered.
 
 **Always ask:**
+
 1. Any rules variants? _(name the most common version you'll use as the default so the user knows what to expect)_
 2. Any mode overrides? _(state the default modes you're planning based on the game type, ask if they want anything different)_
 
 **Ask only if genuinely unclear:**
+
 - Anything about the game's rules that has common variations you can't resolve yourself
 - Computer player requirements if the game type is ambiguous
 
 **Ask if the game has a complex or non-obvious UI** (multiple panels, multiple player areas, non-grid layouts):
+
 - "This game has a complex UI — want an HTML mockup to review before coding starts?"
 
 Format it like:
 
-> "I'm going to build **[known-game]** as **[game-name]**. 
-> 
+> "I'm going to build **[known-game]** as **[game-name]**.
+>
 > 1. ...
 > 2. ...
-> ...
-> Any additional features or custom behaviour?
+>    ...
+>    Any additional features or custom behaviour?
 >
 > Defaults: [list what you're planning]. Just say go if that works."
 
@@ -70,6 +73,7 @@ Wait for the user's response before doing anything else.
 4. Run `npm install` inside `<game-name>/`.
 
 The boilerplate includes pre-built components and hooks — use them, do not reimplement:
+
 - `src/components/Header.tsx` — home and game screen header with all icon buttons
 - `src/components/Modal.tsx` — overlay, focus trap, animate in
 - `src/components/ConfirmModal.tsx` — confirmation dialog
@@ -83,6 +87,7 @@ The boilerplate includes pre-built components and hooks — use them, do not rei
 The following files are pre-wired but must be modified for each game:
 
 **Always modify:**
+
 - `App.tsx` — replace `<game-name>` (×2), define `GameState` type, fill in `startGame` to build initial state from options
 - `HomeOptions.tsx` — update game title and subtitle; update `GameOptions` type and `DEFAULT_OPTIONS`; load wins from storage
 - `HelpModal.tsx` — replace placeholder content with actual game rules
@@ -91,6 +96,7 @@ The following files are pre-wired but must be modified for each game:
 - `GameScreen.tsx` — destructure state/actions from `useGame`; pass to `GameBoard`; update header `center` text; wire `showGameOver` to actual game over condition; fill in `GameOverModal` props and stats placeholder
 
 **Modify if applicable:**
+
 - `HomeOptions.tsx` — remove opponent select for solo games; remove mode select if no modes, or update its options array; remove `value.opponent === 'computer'` conditions if modes/wins apply to both opponent types
 
 ---
@@ -113,6 +119,7 @@ Be sure to include all of the user's decisions from step 2.
 Only document what is game-specific. Do not re-document boilerplate behavior — the coder knows how Header, Modal, card containers, colors, spacing, and transitions work. Focus the plan on: game rules, data model, AI strategy, help content, game-specific status/result text, storage keys, game logic functions, board UI specifics, and game-specific styling.
 
 Before writing, think through the non-obvious mechanics of this specific game:
+
 - What surprises first-time implementers?
 - What state changes are easy to forget or get wrong?
 - What happens at edge transitions — deck exhausted, board full, turn wrap-around?
@@ -130,6 +137,7 @@ Write the completed plan to `<game-name>/context/PLAN.md`.
 ## Step 5 — Self-review
 
 Read the completed plan and check:
+
 - Is it specific enough to code from without any questions?
 - Are all user decisions from step 2 included?
 - All checklist items specific enough to code from — no vague items like `- [ ] handle moves`?
@@ -137,6 +145,7 @@ Read the completed plan and check:
 - Any canonical systems named explicitly?
 
 **Critical Fixes:**
+
 - Any `...` placeholders remain
 - Any section is blank without a justified N/A
 - Win / draw conditions are vague or incomplete
@@ -149,6 +158,7 @@ Read the completed plan and check:
 - Styling section is empty — it should list game-specific board, piece, and animation items
 
 **Meaningful improvement:**
+
 - Special rules exist but state flags are missing from the data model
 - Computer player mentioned but AI strategy is vague
 - Edge cases feel thin given the complexity of the game
@@ -162,6 +172,7 @@ Fix any gaps using the rules from step 4, then write the final plan to `<game-na
 ## Step 6 — Get user approval
 
 Show the user:
+
 > "The <game-name> plan is ready for your review. Respond with 'plan approved' to start coding, or provide feedback for changes."
 
 Wait for explicit approval before proceeding. If the user requests changes, update the plan and ask again.
@@ -177,6 +188,7 @@ Skip this step unless the user requested mockups in step 2.
 Read `.claude/skills/create-game/examples/` for visual reference — the mockup should match the established layout and style. Generate `<game-name>/context/mockup.html` — a single static HTML file showing each screen (home, play, game over, etc) as a rough visual layout. Use inline CSS. Show the right panels, elements, and proportions. No interactivity or game logic needed — layout only.
 
 Tell the user:
+
 > "Mockup saved to `<game-name>/context/mockup.html`. Open it in a browser and let me know if the layout looks right, or provide feedback. Respond with 'mockup approved' to start coding."
 
 Wait for explicit approval. If the user requests changes, update the mockup and ask again. Only proceed on "mockup approved".
@@ -194,6 +206,7 @@ Known game: <known-game>
 ## Step 8 — Done
 
 Tell the user:
+
 > "<game-name> complete."
 
 If any checklist items remain unchecked, note them for the user.

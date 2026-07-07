@@ -47,7 +47,10 @@ main:focus {
   font-weight: var(--weight-bold);
   cursor: pointer;
   border: none;
-  transition: background var(--transition-default), box-shadow var(--transition-default), transform var(--transition-fast);
+  transition:
+    background var(--transition-default),
+    box-shadow var(--transition-default),
+    transform var(--transition-fast);
   width: 100%;
 }
 

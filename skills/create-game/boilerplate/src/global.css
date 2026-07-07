@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Inconsolata:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Inconsolata:wght@400;700&display=swap");
 
 *,
 *::before,
@@ -77,8 +77,8 @@
   --color-danger: var(--red-light);
 
   /* Typography */
-  --font-body: 'Lato', sans-serif;
-  --font-mono: 'Inconsolata', monospace;
+  --font-body: "Lato", sans-serif;
+  --font-mono: "Inconsolata", monospace;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-md: 1rem;
@@ -136,7 +136,9 @@ body {
   align-items: center;
   justify-content: center;
   -webkit-font-smoothing: antialiased;
-  background-size: 100% 100%, 28px 28px;
+  background-size:
+    100% 100%,
+    28px 28px;
   background-image:
     radial-gradient(ellipse 65% 65% at 50% 50%, transparent 20%, var(--color-bg) 80%),
     radial-gradient(circle, var(--gray-15) 1px, transparent 1px);

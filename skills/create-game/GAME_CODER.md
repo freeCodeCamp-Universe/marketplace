@@ -44,6 +44,7 @@ Read `<game-name>/context/PLAN.md` fully before writing any code.
 Identify the first section in `<game-name>/context/PLAN.md` with unchecked items and implement all of the items in that section. Before writing any CSS or UI, read `.claude/skills/create-game/UI.md` first.
 
 The boilerplate includes pre-built components and hooks — use them, do not reimplement:
+
 - `src/components/Header.tsx` — use on every screen with the correct `variant` prop (`"home"` or `"game"`) and required props
 - `src/components/Modal.tsx` — base modal used by ConfirmModal, HelpModal, and GameOverModal
 - `src/components/ConfirmModal.tsx` — use for all destructive action confirmations
@@ -55,6 +56,7 @@ The boilerplate includes pre-built components and hooks — use them, do not rei
 - `src/hooks/useStorage.ts` — use `createStorage('<game-name>_state')` for save/load/clear
 
 These files are pre-wired but must be modified:
+
 - `App.tsx` — replace `<game-name>` (×2), define `GameState` type, fill in `startGame`
 - `HomeOptions.tsx` — update title, subtitle, `GameOptions` type, `DEFAULT_OPTIONS`, wins; adjust or remove opponent/mode selects
 - `HelpModal.tsx` — replace placeholder with game rules

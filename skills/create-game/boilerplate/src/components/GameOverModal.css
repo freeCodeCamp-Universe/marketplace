@@ -4,9 +4,15 @@
   text-align: center;
 }
 
-.game-over-result-win { color: var(--color-success); }
-.game-over-result-loss { color: var(--color-danger); }
-.game-over-result-draw { color: var(--color-accent); }
+.game-over-result-win {
+  color: var(--color-success);
+}
+.game-over-result-loss {
+  color: var(--color-danger);
+}
+.game-over-result-draw {
+  color: var(--color-accent);
+}
 
 .game-over-note {
   font-size: var(--text-md);

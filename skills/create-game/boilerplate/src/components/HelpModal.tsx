@@ -1,7 +1,7 @@
-import Modal from './Modal'
+import Modal from "./Modal";
 
 interface Props {
-  onClose: () => void
+  onClose: () => void;
 }
 
 export default function HelpModal({ onClose }: Props) {
@@ -13,8 +13,10 @@ export default function HelpModal({ onClose }: Props) {
         <p>help text for heading</p>
       </div>
       <div className="help-modal-footer">
-        <button className="btn btn-primary" onClick={onClose}>Got it</button>
+        <button className="btn btn-primary" onClick={onClose}>
+          Got it
+        </button>
       </div>
     </Modal>
-  )
+  );
 }

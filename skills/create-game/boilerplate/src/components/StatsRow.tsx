@@ -1,16 +1,16 @@
-import './StatsRow.css'
+import "./StatsRow.css";
 
 interface Stat {
-  label: string
-  value: string | number
+  label: string;
+  value: string | number;
 }
 
 interface Props {
-  stats: Stat[]
+  stats: Stat[];
 }
 
 export default function StatsRow({ stats }: Props) {
-  if (!stats.length) return null
+  if (!stats.length) return null;
 
   return (
     <dl className="stats-row">
@@ -21,5 +21,5 @@ export default function StatsRow({ stats }: Props) {
         </div>
       ))}
     </dl>
-  )
+  );
 }
