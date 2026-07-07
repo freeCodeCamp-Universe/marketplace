@@ -33,6 +33,7 @@ Claude Code-specific plugin bundles.
 | hello-world            | `skills/hello-world/`            | Reference |
 | sync-issue-templates   | `skills/sync-issue-templates/`   | Active    |
 | sync-small-superblocks | `skills/sync-small-superblocks/` | Active    |
+| unfluff                | `skills/unfluff/`                | Active    |
 
 ### Plugin Skills
 
