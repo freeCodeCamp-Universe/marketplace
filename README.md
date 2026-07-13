@@ -51,6 +51,7 @@ claude --plugin-dir ./plugins/<plugin-name>
 | [sync-issue-templates](skills/sync-issue-templates/)     | Sync GitHub issue templates from an organization's `.github` repository.                                    | Active    |
 | [sync-small-superblocks](skills/sync-small-superblocks/) | Report freeCodeCamp small superblocks that are out of sync with the v9 superblock modules they derive from. | Active    |
 | [unfluff](skills/unfluff/)                               | Make all responses terse. All technical substance should stay. Remove fluff.                                | Active    |
+| [create-game](skills/create-game/)                       | Build a known game from scratch. Includes boilerplate, template, and UI guidance.                           | Active    |
 
 ### Plugin Skills
 
