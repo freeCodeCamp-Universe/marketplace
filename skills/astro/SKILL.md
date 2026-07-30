@@ -49,3 +49,8 @@ const propUser = {
 ---
 <Button user={propUser} />
 ```
+
+## Avoid null returns
+
+If using both @astro/react and @astro/mdx, components rendered with client:\* directive should not return `null`. If they do, they will trigger a spurious "Invalid hook call." warning.
+To avoid this, return `<></>` (i.e. an empty fragment) instead of `null`.
