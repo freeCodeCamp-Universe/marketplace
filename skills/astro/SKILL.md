@@ -54,3 +54,7 @@ const propUser = {
 
 If using both @astro/react and @astro/mdx, components rendered with client:\* directive should not return `null`. If they do, they will trigger a spurious "Invalid hook call." warning.
 To avoid this, return `<></>` (i.e. an empty fragment) instead of `null`.
+
+## Fonts
+
+Do not use `@import url(...)` or `@font-face{}` to add fonts to style sheets. Instead use Astro's `fontProviders` which will optimize font loading. [Guide](https://docs.astro.build/en/guides/fonts/#applying-custom-fonts).
