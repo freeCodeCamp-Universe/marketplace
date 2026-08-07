@@ -159,8 +159,8 @@ reference `--primary-background`, not `#0a0a23`.
 - **Line height**: 1.5 for body text.
 - **Headings**: Use the same color system as body — no separate heading
   palette. Hierarchy comes from size and weight, not color.
-- **Monospace for UI labels** in developer-facing tools (dashboards, CLIs,
-  status indicators). Proportional for user-facing prose.
+- **Monospace only for code, commands, file paths, and other literal technical tokens**
+  — never for UI labels, buttons, or body copy.
 - **Scale down** only below 500px viewport width, and even then keep above
   16px.
 
