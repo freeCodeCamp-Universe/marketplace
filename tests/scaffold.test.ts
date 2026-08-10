@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from "vitest";
-import { execSync } from "node:child_process";
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import { resolve } from "node:path";
+import { scaffold } from "../scripts/lib/scaffold.js";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const PLUGINS_DIR = resolve(ROOT, "plugins");
@@ -9,28 +9,6 @@ const SKILLS_DIR = resolve(ROOT, "skills");
 const AGENTS_DIR = resolve(ROOT, "agents");
 
 const createdPaths: string[] = [];
-
-function scaffold(flags: string): string {
-  return execSync(`npx tsx scripts/scaffold.ts ${flags}`, {
-    cwd: ROOT,
-    encoding: "utf-8",
-    stdio: ["pipe", "pipe", "pipe"],
-  });
-}
-
-function scaffoldExpectFail(flags: string): { status: number; stderr: string } {
-  try {
-    execSync(`npx tsx scripts/scaffold.ts ${flags}`, {
-      cwd: ROOT,
-      encoding: "utf-8",
-      stdio: ["pipe", "pipe", "pipe"],
-    });
-    return { status: 0, stderr: "" };
-  } catch (err: unknown) {
-    const e = err as { status: number; stderr: string };
-    return { status: e.status, stderr: e.stderr };
-  }
-}
 
 function trackCleanup(p: string): void {
   createdPaths.push(p);
@@ -51,7 +29,7 @@ describe("scaffold CLI — plugin creation", () => {
     const dir = resolve(PLUGINS_DIR, name);
     trackCleanup(dir);
 
-    scaffold(`--name ${name} --description "A test plugin" --type plugin`);
+    scaffold({ name, description: "A test plugin", type: "plugin" }, ROOT);
 
     expect(existsSync(dir)).toBe(true);
     expect(existsSync(resolve(dir, ".claude-plugin", "plugin.json"))).toBe(true);
@@ -65,7 +43,7 @@ describe("scaffold CLI — plugin creation", () => {
     const dir = resolve(PLUGINS_DIR, name);
     trackCleanup(dir);
 
-    scaffold(`--name ${name} --description "${desc}" --type plugin`);
+    scaffold({ name, description: desc, type: "plugin" }, ROOT);
 
     const pluginJson = JSON.parse(
       readFileSync(resolve(dir, ".claude-plugin", "plugin.json"), "utf-8"),
@@ -81,7 +59,7 @@ describe("scaffold CLI — plugin creation", () => {
     const dir = resolve(PLUGINS_DIR, name);
     trackCleanup(dir);
 
-    scaffold(`--name ${name} --description "${desc}" --type plugin`);
+    scaffold({ name, description: desc, type: "plugin" }, ROOT);
 
     const skillMd = readFileSync(resolve(dir, "skills", name, "SKILL.md"), "utf-8");
     expect(skillMd).toMatch(new RegExp(`^name: ${name}$`, "m"));
@@ -94,7 +72,7 @@ describe("scaffold CLI — plugin creation", () => {
     const dir = resolve(PLUGINS_DIR, name);
     trackCleanup(dir);
 
-    scaffold(`--name ${name} --description "${desc}" --type plugin`);
+    scaffold({ name, description: desc, type: "plugin" }, ROOT);
 
     const readme = readFileSync(resolve(dir, "README.md"), "utf-8");
     expect(readme).toMatch(new RegExp(`^# ${name}$`, "m"));
@@ -111,7 +89,7 @@ describe("scaffold CLI — skill creation", () => {
     const dir = resolve(SKILLS_DIR, name);
     trackCleanup(dir);
 
-    scaffold(`--name ${name} --description "${desc}" --type skill`);
+    scaffold({ name, description: desc, type: "skill" }, ROOT);
 
     expect(existsSync(dir)).toBe(true);
     const skillMd = readFileSync(resolve(dir, "SKILL.md"), "utf-8");
@@ -128,7 +106,7 @@ describe("scaffold CLI — agent creation", () => {
     const file = resolve(AGENTS_DIR, `${name}.md`);
     trackCleanup(file);
 
-    scaffold(`--name ${name} --description "${desc}" --type agent`);
+    scaffold({ name, description: desc, type: "agent" }, ROOT);
 
     expect(existsSync(file)).toBe(true);
     const agentMd = readFileSync(file, "utf-8");
@@ -144,9 +122,8 @@ describe("scaffold CLI — error handling", () => {
     const dir = resolve(PLUGINS_DIR, name);
     trackCleanup(dir);
 
-    scaffold(`--name ${name} --description "first" --type plugin`);
-    const result = scaffoldExpectFail(`--name ${name} --description "second" --type plugin`);
-    expect(result.status).not.toBe(0);
+    scaffold({ name, description: "first", type: "plugin" }, ROOT);
+    expect(() => scaffold({ name, description: "second", type: "plugin" }, ROOT)).toThrow();
   });
 
   it("fails with non-zero exit code for duplicate skill name", () => {
@@ -154,9 +131,8 @@ describe("scaffold CLI — error handling", () => {
     const dir = resolve(SKILLS_DIR, name);
     trackCleanup(dir);
 
-    scaffold(`--name ${name} --description "first" --type skill`);
-    const result = scaffoldExpectFail(`--name ${name} --description "second" --type skill`);
-    expect(result.status).not.toBe(0);
+    scaffold({ name, description: "first", type: "skill" }, ROOT);
+    expect(() => scaffold({ name, description: "second", type: "skill" }, ROOT)).toThrow();
   });
 
   it("fails with non-zero exit code for duplicate agent name", () => {
@@ -164,46 +140,43 @@ describe("scaffold CLI — error handling", () => {
     const file = resolve(AGENTS_DIR, `${name}.md`);
     trackCleanup(file);
 
-    scaffold(`--name ${name} --description "first" --type agent`);
-    const result = scaffoldExpectFail(`--name ${name} --description "second" --type agent`);
-    expect(result.status).not.toBe(0);
+    scaffold({ name, description: "first", type: "agent" }, ROOT);
+    expect(() => scaffold({ name, description: "second", type: "agent" }, ROOT)).toThrow();
   });
 
   it("fails with non-zero exit code for uppercase name", () => {
-    const result = scaffoldExpectFail(`--name MyPlugin --description "bad name" --type plugin`);
-    expect(result.status).not.toBe(0);
+    expect(() =>
+      scaffold({ name: "MyPlugin", description: "bad name", type: "plugin" }, ROOT),
+    ).toThrow();
   });
 
   it("fails with non-zero exit code for name with spaces", () => {
-    const result = scaffoldExpectFail(`--name "my plugin" --description "bad name" --type plugin`);
-    expect(result.status).not.toBe(0);
+    expect(() =>
+      scaffold({ name: "my plugin", description: "bad name", type: "plugin" }, ROOT),
+    ).toThrow();
   });
 
   it("fails with non-zero exit code for path traversal in name", () => {
-    const result = scaffoldExpectFail(
-      `--name "../../../tmp/pwned" --description "path traversal" --type plugin`,
-    );
-    expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("Invalid name");
+    expect(() =>
+      scaffold({ name: "../../../tmp/pwned", description: "path traversal", type: "plugin" }, ROOT),
+    ).toThrow("Invalid name");
   });
 
-  it("fails with non-zero exit code for path traversal in name (partial args)", () => {
-    const result = scaffoldExpectFail(`--name "../test" --type plugin`);
-    expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("Invalid name");
+  it("fails with non-zero exit code for path traversal in name (variant)", () => {
+    expect(() =>
+      scaffold({ name: "../test", description: "path traversal", type: "plugin" }, ROOT),
+    ).toThrow("Invalid name");
   });
 
   it("fails with non-zero exit code for description containing YAML separator", () => {
-    const result = scaffoldExpectFail(`--name test-yaml-inj --description "---" --type plugin`);
-    expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("must not contain YAML");
+    expect(() =>
+      scaffold({ name: "test-yaml-inj", description: "---", type: "plugin" }, ROOT),
+    ).toThrow("must not contain YAML");
   });
 
   it("fails for description with YAML separator on its own line", () => {
-    const result = scaffoldExpectFail(
-      `--name test-yaml-inj2 --description "line1\n---\nline2" --type plugin`,
-    );
-    expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("must not contain YAML");
+    expect(() =>
+      scaffold({ name: "test-yaml-inj2", description: "line1\n---\nline2", type: "plugin" }, ROOT),
+    ).toThrow("must not contain YAML");
   });
 });
