@@ -30,6 +30,7 @@ Claude Code-specific plugin bundles.
 | Name                   | Path                             | Status    |
 | ---------------------- | -------------------------------- | --------- |
 | command-line-chic      | `skills/command-line-chic/`      | Active    |
+| curriculum-studio      | `skills/curriculum-studio/`      | Active    |
 | hello-world            | `skills/hello-world/`            | Reference |
 | sync-issue-templates   | `skills/sync-issue-templates/`   | Active    |
 | sync-small-superblocks | `skills/sync-small-superblocks/` | Active    |
