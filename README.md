@@ -47,6 +47,7 @@ claude --plugin-dir ./plugins/<plugin-name>
 | Skill                                                    | Description                                                                                                 | Status    |
 | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------- |
 | [command-line-chic](skills/command-line-chic/)           | freeCodeCamp UI design system and aesthetic guidelines.                                                     | Active    |
+| [curriculum-studio](skills/curriculum-studio/)           | Add dev-only, in-place curriculum authoring to Vite or Astro apps backed by Markdown, MDX, or JSON.         | Active    |
 | [hello-world](skills/hello-world/)                       | Reference skill demonstrating the marketplace skill format.                                                 | Reference |
 | [sync-issue-templates](skills/sync-issue-templates/)     | Sync GitHub issue templates from an organization's `.github` repository.                                    | Active    |
 | [sync-small-superblocks](skills/sync-small-superblocks/) | Report freeCodeCamp small superblocks that are out of sync with the v9 superblock modules they derive from. | Active    |
