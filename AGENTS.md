@@ -35,6 +35,7 @@ Claude Code-specific plugin bundles.
 | sync-issue-templates   | `skills/sync-issue-templates/`   | Active    |
 | sync-small-superblocks | `skills/sync-small-superblocks/` | Active    |
 | unfluff                | `skills/unfluff/`                | Active    |
+| web-accessibility      | `skills/web-accessibility/`      | Active    |
 
 ### Plugin Skills
 
