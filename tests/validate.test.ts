@@ -1,36 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, copyFileSync, cpSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { execSync } from "node:child_process";
 import { tmpdir } from "node:os";
-
-const VALIDATE_SCRIPT = join(import.meta.dirname, "..", "scripts", "validate.ts");
-const VALIDATE_LIB = join(import.meta.dirname, "..", "scripts", "lib");
+import { validate } from "../scripts/lib/validate.js";
 
 let tempDir: string;
-
-function setupTempDir(): string {
-  const dir = mkdtempSync(join(tmpdir(), "validate-test-"));
-  const scriptsDir = join(dir, "scripts");
-  mkdirSync(scriptsDir, { recursive: true });
-  copyFileSync(VALIDATE_SCRIPT, join(scriptsDir, "validate.ts"));
-  cpSync(VALIDATE_LIB, join(scriptsDir, "lib"), { recursive: true });
-  return dir;
-}
-
-function runValidator(root: string): { stdout: string; exitCode: number } {
-  try {
-    const stdout = execSync("npx tsx validate.ts", {
-      cwd: join(root, "scripts"),
-      encoding: "utf-8",
-      stdio: ["pipe", "pipe", "pipe"],
-    });
-    return { stdout, exitCode: 0 };
-  } catch (err: unknown) {
-    const e = err as { stdout?: string; status?: number };
-    return { stdout: e.stdout ?? "", exitCode: e.status ?? 1 };
-  }
-}
 
 function createPlugin(
   base: string,
@@ -101,7 +75,7 @@ function createAgent(base: string, name: string, content: string | false): void 
 }
 
 beforeEach(() => {
-  tempDir = setupTempDir();
+  tempDir = mkdtempSync(join(tmpdir(), "validate-test-"));
 });
 
 afterEach(() => {
@@ -112,7 +86,7 @@ describe("validate.ts", () => {
   describe("happy path", () => {
     it("valid plugin with all required files and fields passes all checks", () => {
       createPlugin(tempDir, "good-plugin");
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(0);
       expect(stdout).toContain("PASS");
       expect(stdout).not.toContain("FAIL");
@@ -124,7 +98,7 @@ describe("validate.ts", () => {
         "test-skill",
         ["---", "name: test-skill", "description: A test skill", "---", "# Test"].join("\n"),
       );
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(0);
       expect(stdout).toContain("PASS");
       expect(stdout).not.toContain("FAIL");
@@ -143,7 +117,7 @@ describe("validate.ts", () => {
           "Follow the requested instructions.",
         ].join("\n"),
       );
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(0);
       expect(stdout).toContain("PASS");
       expect(stdout).not.toContain("FAIL");
@@ -155,7 +129,7 @@ describe("validate.ts", () => {
       createPlugin(tempDir, "bad-plugin", {
         pluginJson: false,
       });
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("plugin.json does not exist");
@@ -165,7 +139,7 @@ describe("validate.ts", () => {
       createPlugin(tempDir, "bad-json", {
         pluginJson: "{ not valid json }}}",
       });
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("not valid JSON");
@@ -175,7 +149,7 @@ describe("validate.ts", () => {
       createPlugin(tempDir, "empty-name", {
         pluginJson: { name: "", description: "Test", version: "1.0.0" },
       });
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("missing 'name' field");
@@ -185,7 +159,7 @@ describe("validate.ts", () => {
       createPlugin(tempDir, "no-skills", {
         noSkillsDir: true,
       });
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("skills/ directory does not exist");
@@ -201,7 +175,7 @@ describe("validate.ts", () => {
       mkdirSync(join(pluginDir, "skills", "broken-skill"), { recursive: true });
       writeFileSync(join(pluginDir, "README.md"), "# Test");
 
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("SKILL.md does not exist");
@@ -213,7 +187,7 @@ describe("validate.ts", () => {
           "my-skill": ["---", "description: A test skill", "---", "# Skill"].join("\n"),
         },
       });
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("missing 'name' in frontmatter");
@@ -225,7 +199,7 @@ describe("validate.ts", () => {
           "my-skill": ["---", "name: my-skill", "description: test", "# Body content"].join("\n"),
         },
       });
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
     });
@@ -236,7 +210,7 @@ describe("validate.ts", () => {
           "my-skill": ["---", "name: My_Skill", "description: A test", "---", "# Skill"].join("\n"),
         },
       });
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("must use lowercase letters");
@@ -246,7 +220,7 @@ describe("validate.ts", () => {
       createPlugin(tempDir, "no-readme", {
         readme: false,
       });
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("README.md does not exist");
@@ -256,7 +230,7 @@ describe("validate.ts", () => {
   describe("standalone skill failures", () => {
     it("SKILL.md missing fails", () => {
       createStandaloneSkill(tempDir, "no-file", false);
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("SKILL.md does not exist");
@@ -268,7 +242,7 @@ describe("validate.ts", () => {
         "empty-name",
         ["---", "name: ", "description: Test", "---", "# Skill"].join("\n"),
       );
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("name is required");
@@ -280,7 +254,7 @@ describe("validate.ts", () => {
         "bad-name",
         ["---", "name: BadName!", "description: Test", "---", "# Skill"].join("\n"),
       );
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("FAIL");
       expect(stdout).toContain("must use lowercase letters");
@@ -292,7 +266,7 @@ describe("validate.ts", () => {
         "directory-name",
         ["---", "name: other-name", "description: Test", "---", "# Skill"].join("\n"),
       );
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("name' must match directory");
     });
@@ -301,7 +275,7 @@ describe("validate.ts", () => {
   describe("agent failures", () => {
     it("agent without frontmatter fails", () => {
       createAgent(tempDir, "plain-agent", "# Plain Agent\nNo metadata.");
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("frontmatter must start with ---");
     });
@@ -312,7 +286,7 @@ describe("validate.ts", () => {
         "file-name",
         ["---", "name: other-name", "description: Test", "---", "# Agent"].join("\n"),
       );
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("name' must match filename");
     });
@@ -322,7 +296,7 @@ describe("validate.ts", () => {
     it("empty plugins/ and skills/ directories exits with code 1", () => {
       mkdirSync(join(tempDir, "plugins"), { recursive: true });
       mkdirSync(join(tempDir, "skills"), { recursive: true });
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("No content found to validate");
     });
@@ -333,7 +307,7 @@ describe("validate.ts", () => {
         "quoted-name",
         ["---", 'name: "quoted-name"', "description: Test", "---", "# Skill"].join("\n"),
       );
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(0);
       expect(stdout).toContain("PASS");
       expect(stdout).toContain("'name' is valid");
@@ -345,14 +319,14 @@ describe("validate.ts", () => {
         "single-quoted",
         ["---", "name: 'single-quoted'", "description: Test", "---", "# Skill"].join("\n"),
       );
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(0);
       expect(stdout).toContain("PASS");
       expect(stdout).toContain("'name' is valid");
     });
 
     it("no plugins/ or skills/ directories at all exits with code 1", () => {
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(1);
       expect(stdout).toContain("No content found to validate");
     });
@@ -364,7 +338,7 @@ describe("validate.ts", () => {
           "skill-two": ["---", "name: skill-two", "description: Second", "---", "# Two"].join("\n"),
         },
       });
-      const { stdout, exitCode } = runValidator(tempDir);
+      const { stdout, exitCode } = validate(tempDir);
       expect(exitCode).toBe(0);
       expect(stdout).toContain("skill-one");
       expect(stdout).toContain("skill-two");
