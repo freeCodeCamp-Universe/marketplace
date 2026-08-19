@@ -36,41 +36,17 @@ claude --plugin-dir ./plugins/<plugin-name>
 
 ## Catalog
 
-### Plugins
+Marketplace directories are live indexes. Each item carries its own name and
+description in canonical metadata, so adding an item does not require editing a
+shared catalog.
 
-| Plugin                                            | Description                                                        | Skills                     | Status |
-| ------------------------------------------------- | ------------------------------------------------------------------ | -------------------------- | ------ |
-| [spanish-curriculum](plugins/spanish-curriculum/) | Professional Spanish curriculum pipeline across CEFR levels A1-C2. | carmen, curriculum, marcos | Active |
+| Type              | Browse                 | Canonical metadata                           |
+| ----------------- | ---------------------- | -------------------------------------------- |
+| Plugins           | [`plugins/`](plugins/) | `.claude-plugin/plugin.json` and `README.md` |
+| Standalone skills | [`skills/`](skills/)   | `<skill>/SKILL.md`                           |
+| Shared agents     | [`agents/`](agents/)   | `<agent>.md`                                 |
 
-### Standalone Skills
-
-| Skill                                                    | Description                                                                                                 | Status    |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------- |
-| [command-line-chic](skills/command-line-chic/)           | freeCodeCamp UI design system and aesthetic guidelines.                                                     | Active    |
-| [curriculum-studio](skills/curriculum-studio/)           | Add dev-only, in-place curriculum authoring to Vite or Astro apps backed by Markdown, MDX, or JSON.         | Active    |
-| [hello-world](skills/hello-world/)                       | Reference skill demonstrating the marketplace skill format.                                                 | Reference |
-| [sync-issue-templates](skills/sync-issue-templates/)     | Sync GitHub issue templates from an organization's `.github` repository.                                    | Active    |
-| [sync-small-superblocks](skills/sync-small-superblocks/) | Report freeCodeCamp small superblocks that are out of sync with the v9 superblock modules they derive from. | Active    |
-| [unfluff](skills/unfluff/)                               | Make all responses terse. All technical substance should stay. Remove fluff.                                | Active    |
-| [create-game](skills/create-game/)                       | Build a known game from scratch. Includes boilerplate, template, and UI guidance.                           | Active    |
-| [web-accessibility](skills/web-accessibility/)           | Most common WCAG 2.2 AA patterns for UI development.                                                        | Active    |
-
-### Plugin Skills
-
-| Skill                                                       | Plugin             | Description                                                          | Status |
-| ----------------------------------------------------------- | ------------------ | -------------------------------------------------------------------- | ------ |
-| [carmen](plugins/spanish-curriculum/skills/carmen/)         | spanish-curriculum | Research, plan, and refine Spanish curriculum modules.               | Active |
-| [curriculum](plugins/spanish-curriculum/skills/curriculum/) | spanish-curriculum | Coordinate the Carmen to Marcos planning and task creation workflow. | Active |
-| [marcos](plugins/spanish-curriculum/skills/marcos/)         | spanish-curriculum | Generate task files from planned Spanish curriculum modules.         | Active |
-
-### Shared Agents
-
-| Agent                                | Description                                                         | Status    |
-| ------------------------------------ | ------------------------------------------------------------------- | --------- |
-| [hello-world](agents/hello-world.md) | Reference agent demonstrating the portable agent definition format. | Reference |
-
-Plugin-local agents are indexed in [AGENTS.md](AGENTS.md) and referenced from
-their owning skill.
+Plugin skills and agents live under their owning plugin in [`plugins/`](plugins/).
 
 ## Supported Tools
 

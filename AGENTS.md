@@ -17,64 +17,17 @@ Claude Code-specific plugin bundles.
 - Keep portable skills and canonical agents tool-agnostic; if a Claude-only
   assumption is necessary, document the portability impact in plugin docs.
 
-## Marketplace Index
+## Discovery and Documentation Ownership
 
-### Plugins
-
-| Name               | Path                          | Status |
-| ------------------ | ----------------------------- | ------ |
-| spanish-curriculum | `plugins/spanish-curriculum/` | Active |
-
-### Standalone Skills
-
-| Name                   | Path                             | Status    |
-| ---------------------- | -------------------------------- | --------- |
-| command-line-chic      | `skills/command-line-chic/`      | Active    |
-| curriculum-studio      | `skills/curriculum-studio/`      | Active    |
-| hello-world            | `skills/hello-world/`            | Reference |
-| sync-issue-templates   | `skills/sync-issue-templates/`   | Active    |
-| sync-small-superblocks | `skills/sync-small-superblocks/` | Active    |
-| unfluff                | `skills/unfluff/`                | Active    |
-| web-accessibility      | `skills/web-accessibility/`      | Active    |
-
-### Plugin Skills
-
-| Name       | Plugin             | Path                                            | Status |
-| ---------- | ------------------ | ----------------------------------------------- | ------ |
-| carmen     | spanish-curriculum | `plugins/spanish-curriculum/skills/carmen/`     | Active |
-| curriculum | spanish-curriculum | `plugins/spanish-curriculum/skills/curriculum/` | Active |
-| marcos     | spanish-curriculum | `plugins/spanish-curriculum/skills/marcos/`     | Active |
-
-### Shared Agents
-
-| Name        | Path                    | Status    |
-| ----------- | ----------------------- | --------- |
-| hello-world | `agents/hello-world.md` | Reference |
-
-### Plugin-Local Agents
-
-| Name              | Owner  | Path                                                                   |
-| ----------------- | ------ | ---------------------------------------------------------------------- |
-| coherence-checker | carmen | `plugins/spanish-curriculum/skills/carmen/agents/coherence-checker.md` |
-| learn-planner     | carmen | `plugins/spanish-curriculum/skills/carmen/agents/learn-planner.md`     |
-| pcic-researcher   | carmen | `plugins/spanish-curriculum/skills/carmen/agents/pcic-researcher.md`   |
-| practice-planner  | carmen | `plugins/spanish-curriculum/skills/carmen/agents/practice-planner.md`  |
-| sheet-writer      | carmen | `plugins/spanish-curriculum/skills/carmen/agents/sheet-writer.md`      |
-| warmup-planner    | carmen | `plugins/spanish-curriculum/skills/carmen/agents/warmup-planner.md`    |
-
-## Index Maintenance Rules
-
-- Update the Marketplace Index in this file whenever adding, renaming, moving,
-  deprecating, or removing a plugin, skill, or agent.
-- Keep the root `README.md` catalog aligned with this index. The root README is
-  user-facing; this file is agent-facing.
-- Keep each plugin README aligned with its manifest and bundled skills:
-  `plugins/<name>/README.md`.
-- Use `SKILL.md` and agent Markdown files as canonical item docs; reserve README
-  files for the root catalog and plugin-level documentation.
-- Status labels should be one of: `Active`, `Reference`, `Deprecated`, or
-  `Experimental`.
-- Run `pnpm run validate` after index or README changes.
+- Treat directory layout as marketplace index. Discover items from `plugins/`,
+  `skills/`, `agents/`, and plugin-local `skills/` or `agents/` directories.
+- Keep item metadata and documentation with its owner: plugin manifests and
+  READMEs, skill `SKILL.md` files, and agent Markdown files.
+- Scope registration-only changes to new item directory or file. Root `README.md`
+  and this file contain stable navigation and conventions, not item inventories.
+- Use plugin READMEs for plugin-level workflows, setup, and compatibility. Skill
+  and agent directories provide complete plugin item inventories.
+- Run `pnpm run validate` after marketplace structure or metadata changes.
 
 ## Self-Development Rules
 
@@ -86,7 +39,7 @@ Claude Code-specific plugin bundles.
 - Keep templates minimal and portable. Add tool-specific examples only in plugin
   templates or plugin docs.
 - Prefer small, focused reference files over very large `SKILL.md` bodies.
-- Keep root catalogs and docs aligned with actual frontmatter and manifests.
+- Keep canonical item docs aligned with actual frontmatter and manifests.
 
 ## Validation
 

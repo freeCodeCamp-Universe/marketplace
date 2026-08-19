@@ -4,9 +4,8 @@ Short description of what this plugin does and the problem it solves.
 
 ## Skills
 
-| Skill           | Command        | Description                    |
-| --------------- | -------------- | ------------------------------ |
-| **Plugin Name** | `/plugin-name` | Brief description of the skill |
+Bundled skills are discovered from `skills/*/SKILL.md`. Each skill's frontmatter
+contains its name and description.
 
 ## Installation
 

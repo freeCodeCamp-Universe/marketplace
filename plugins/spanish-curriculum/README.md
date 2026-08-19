@@ -155,4 +155,4 @@ Skill instructions live in:
 - `skills/marcos/SKILL.md` — task creation workflow
 - `skills/curriculum/SKILL.md` — end-to-end orchestration workflow
 
-Carmen's specialist agents live in `skills/carmen/agents/`. Update the root marketplace catalog and `AGENTS.md` index whenever plugin contents change.
+Carmen's specialist agents live in `skills/carmen/agents/`. Skill and agent metadata in these directories drives marketplace discovery.
