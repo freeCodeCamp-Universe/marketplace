@@ -60,7 +60,7 @@ cp -r templates/plugin/ plugins/<your-plugin-name>/
 
 3. Create skills in `skills/<skill-name>/` inside your plugin directory. Each skill needs `SKILL.md` with YAML frontmatter (`name`, `description`).
 
-4. Update your plugin's `README.md` with a description, skill table, installation instructions, and usage examples. See `plugins/spanish-curriculum/README.md` for a complete example.
+4. Update your plugin's `README.md` with its workflow, installation instructions, and usage examples. Skills remain discoverable from their canonical `SKILL.md` files under the plugin's `skills/` directory.
 
 5. Run validation:
 
@@ -110,15 +110,26 @@ cp templates/agent.md agents/<your-agent-name>.md
 
 2. Edit `agents/<your-agent-name>.md` — update the frontmatter `name` (must match the filename without `.md`) and `description`, then write the Markdown body as the agent's system prompt.
 
-3. Update the root `README.md` catalog and `AGENTS.md` Marketplace Index so the agent is discoverable.
-
-4. Run validation:
+3. Run validation:
 
 ```sh
 pnpm run validate
 ```
 
-5. Open a PR.
+4. Open a PR.
+
+## Marketplace Discovery
+
+Marketplace directories act as indexes. Keep discovery metadata in files owned
+by each item:
+
+- Plugins: `plugins/<name>/.claude-plugin/plugin.json` and plugin `README.md`
+- Skills: `skills/<name>/SKILL.md` or plugin-local `skills/<name>/SKILL.md`
+- Agents: `agents/<name>.md` or plugin-local agent Markdown files
+
+Adding, moving, or removing an item should change its own path only. Root
+`README.md` and `AGENTS.md` define stable navigation and conventions; edit them
+only when those repository-wide docs change.
 
 ## Skill Naming Rules
 
@@ -232,5 +243,5 @@ The validator (`pnpm run validate`) checks:
   PRs.
 - Use a descriptive PR title (e.g., "Add code-review plugin" or "Add lint-fix skill")
 - Ensure `pnpm turbo check` passes before requesting review
-- Update the root `README.md` catalog and `AGENTS.md` Marketplace Index when adding, moving, deprecating, or removing a plugin, skill, or agent
+- Keep item discovery changes within the owning plugin, skill, or agent path
 - Include a brief description of what the plugin, skill, or agent does and how to use it
