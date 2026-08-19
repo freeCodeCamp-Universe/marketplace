@@ -58,3 +58,11 @@ To avoid this, return `<></>` (i.e. an empty fragment) instead of `null`.
 ## Fonts
 
 Do not use `@import url(...)` or `@font-face{}` to add fonts to style sheets. Instead use Astro's `fontProviders` which will optimize font loading. [Guide](https://docs.astro.build/en/guides/fonts/#applying-custom-fonts).
+
+## Prefer .astro components
+
+Even if the application supports other UI frameworks (React, Vue etc.), use them sparingly. If a component does not need interactivity, use a .astro component instead.
+This makes it clear that hydration is not possible and gives access to powerful .astro specific features like script directives and build time javascript execution.
+
+When creating new components, only use a UI framework component if either of the following is true. The component is inherently interactive or it needs to be imported by a
+UI framework component. If the static component can be passed into the UI component via a `<slot>`, then the static component should come from a .astro file.
